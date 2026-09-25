@@ -17,14 +17,14 @@ const skills = [
   { name: 'REST APIs',    level: 85, category: 'Backend',  note: 'Advanced', color: '#FF6C37', emoji: '🔗' },
   { name: 'JWT Auth',     level: 80, category: 'Backend',  note: 'Advanced', color: '#D63AFF', emoji: '🔐' },
 
-  { name: 'Git',          level: 85, category: 'Tools',    note: 'Advanced',     color: '#F05032', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-  { name: 'GitHub',       level: 85, category: 'Tools',    note: 'Advanced',     color: '#AAAAAA', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', invert: true },
-  { name: 'VS Code',      level: 92, category: 'Tools',    note: 'Expert',       color: '#007ACC', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
-  { name: 'Postman',      level: 80, category: 'Tools',    note: 'Advanced',     color: '#FF6C37', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
+  { name: 'Git',          level: 85, category: 'Tools',    note: 'Advanced', color: '#F05032', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+  { name: 'GitHub',       level: 85, category: 'Tools',    note: 'Advanced', color: '#AAAAAA', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', invert: true },
+  { name: 'VS Code',      level: 92, category: 'Tools',    note: 'Advanced', color: '#007ACC', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
+  { name: 'Postman',      level: 80, category: 'Tools',    note: 'Advanced', color: '#FF6C37', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
 
-  { name: 'Solidity',     level: 35, category: 'Web3',     note: 'Beginner',     color: '#9B9B9B', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
-  { name: 'Web3 Basics',  level: 55, category: 'Web3',     note: 'Learning',     color: '#F16822', emoji: '🔷' },
-  { name: 'Ethers.js',    level: 45, category: 'Web3',     note: 'Learning',     color: '#6B8CFF', emoji: '⛓️' },
+  { name: 'Solidity',     level: 80, category: 'Web3',     note: 'Advanced', color: '#9B9B9B', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
+  { name: 'Web3 Basics',  level: 80, category: 'Web3',     note: 'Advanced', color: '#F16822', emoji: '🔷' },
+  { name: 'Ethers.js',    level: 80, category: 'Web3',     note: 'Advanced', color: '#6B8CFF', emoji: '⛓️' },
 ];
 
 // Which categories to show side-by-side in "All" mode
