@@ -3,19 +3,19 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 
 // ── Skill Data ────────────────────────────────────────────────
 const skills = [
-  { name: 'HTML5',        level: 95, category: 'Frontend', note: 'Advanced',     color: '#E34F26', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
-  { name: 'CSS3',         level: 88, category: 'Frontend', note: 'Advanced',     color: '#1572B6', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
-  { name: 'JavaScript',   level: 85, category: 'Frontend', note: 'Intermediate', color: '#F7DF1E', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
-  { name: 'React.js',     level: 88, category: 'Frontend', note: 'Advanced',     color: '#61DAFB', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-  { name: 'Next.js',      level: 72, category: 'Frontend', note: 'Intermediate', color: '#A78BFA', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
-  { name: 'Tailwind CSS', level: 90, category: 'Frontend', note: 'Advanced',     color: '#06B6D4', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
-  { name: 'Redux',        level: 75, category: 'Frontend', note: 'Intermediate', color: '#764ABC', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg' },
+  { name: 'HTML5',        level: 95, category: 'Frontend', note: 'Advanced', color: '#E34F26', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+  { name: 'CSS3',         level: 88, category: 'Frontend', note: 'Advanced', color: '#1572B6', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+  { name: 'JavaScript',   level: 85, category: 'Frontend', note: 'Advanced', color: '#F7DF1E', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+  { name: 'React.js',     level: 88, category: 'Frontend', note: 'Advanced', color: '#61DAFB', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'Next.js',      level: 72, category: 'Frontend', note: 'Advanced', color: '#A78BFA', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+  { name: 'Tailwind CSS', level: 90, category: 'Frontend', note: 'Advanced', color: '#06B6D4', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'Redux',        level: 75, category: 'Frontend', note: 'Advanced', color: '#764ABC', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg' },
 
-  { name: 'Node.js',      level: 80, category: 'Backend',  note: 'Intermediate', color: '#339933', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-  { name: 'Express.js',   level: 82, category: 'Backend',  note: 'Intermediate', color: '#BBBBBB', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', invert: true },
-  { name: 'MongoDB',      level: 78, category: 'Backend',  note: 'Intermediate', color: '#47A248', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-  { name: 'REST APIs',    level: 85, category: 'Backend',  note: 'Advanced',     color: '#FF6C37', emoji: '🔗' },
-  { name: 'JWT Auth',     level: 80, category: 'Backend',  note: 'Advanced',     color: '#D63AFF', emoji: '🔐' },
+  { name: 'Node.js',      level: 80, category: 'Backend',  note: 'Advanced', color: '#339933', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'Express.js',   level: 82, category: 'Backend',  note: 'Advanced', color: '#BBBBBB', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', invert: true },
+  { name: 'MongoDB',      level: 78, category: 'Backend',  note: 'Advanced', color: '#47A248', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+  { name: 'REST APIs',    level: 85, category: 'Backend',  note: 'Advanced', color: '#FF6C37', emoji: '🔗' },
+  { name: 'JWT Auth',     level: 80, category: 'Backend',  note: 'Advanced', color: '#D63AFF', emoji: '🔐' },
 
   { name: 'Git',          level: 85, category: 'Tools',    note: 'Advanced',     color: '#F05032', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
   { name: 'GitHub',       level: 85, category: 'Tools',    note: 'Advanced',     color: '#AAAAAA', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', invert: true },
