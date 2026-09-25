@@ -235,13 +235,13 @@ export const timeline = [
   {
     year: '2022–23',
     title: 'E-Commerce & E-Learning Platforms',
-    desc: 'Delivered Henri-Lloyd (global e-commerce with Algolia), LearnIIPlus (UK e-learning), and MyBeautySquad (beauty marketplace) for international clients.',
+    desc: 'Delivered global e-commerce platform (with Algolia search), UK e-learning system, and beauty marketplace apps for international clients.',
     type: 'project',
   },
   {
     year: '2023',
     title: 'Web3 & NFT Expertise',
-    desc: 'Built NakaToken, Loud Market, and Digital Title Platform — full NFT marketplaces with Web3 API integration, wallet connect, and on-chain transaction handling.',
+    desc: 'Built NFT marketplaces and on-chain digital title registry platforms — full Web3 API integration, wallet connectivity, and transaction handling.',
     type: 'milestone',
   },
   {
@@ -269,7 +269,7 @@ export const testimonials = [
   {
     id: 1,
     name: 'James Richardson',
-    role: 'Product Lead, Henri-Lloyd (UK)',
+    role: 'Product Lead, Global E-Commerce Client (UK)',
     text: 'Guru Prasad delivered our e-commerce revamp on time and above expectations. His React and Redux expertise transformed our product filtering and checkout — conversion rates improved by 35%. Exceptional professional.',
     rating: 5,
     avatar: 'JR',
@@ -278,7 +278,7 @@ export const testimonials = [
   {
     id: 2,
     name: 'Sophie Williams',
-    role: 'CTO, LearnIIPlus (UK)',
+    role: 'CTO, UK E-Learning Client',
     text: 'He built our entire e-learning platform backend — course management, progress tracking, payments — cleanly and on schedule. His full-stack depth with both MERN and Laravel is remarkable.',
     rating: 5,
     avatar: 'SW',
