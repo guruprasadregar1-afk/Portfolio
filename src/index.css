@@ -1,0 +1,380 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────
+   CSS VARIABLES — dark mode (default)
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  --bg-base:          #0a0a0f;
+  --bg-surface:       #0f0f1e;
+  --bg-card:          rgba(15, 15, 30, 0.70);
+  --bg-card-hover:    rgba(20, 20, 40, 0.85);
+  --bg-glass:         rgba(255, 255, 255, 0.04);
+  --bg-input:         rgba(255, 255, 255, 0.05);
+
+  --border-subtle:    rgba(255, 255, 255, 0.07);
+  --border-card:      rgba(124, 58, 237, 0.20);
+  --border-input:     rgba(124, 58, 237, 0.25);
+  --border-glass:     rgba(255, 255, 255, 0.10);
+
+  --text-primary:     #f8fafc;
+  --text-secondary:   #94a3b8;
+  --text-muted:       #475569;
+  --text-placeholder: rgba(255, 255, 255, 0.30);
+
+  --scrollbar-track:  #0a0a0f;
+  --scrollbar-thumb:  #7C3AED;
+
+  --marquee-fade:     #0a0a0f;
+
+  --blob-opacity:     0.13;
+  --skill-bubble-bg:  radial-gradient(circle at 38% 32%, #1d1d35 0%, #111120 100%);
+  --skill-bubble-border: rgba(255, 255, 255, 0.06);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CSS VARIABLES — light mode
+   ───────────────────────────────────────────────────────────────── */
+.light {
+  --bg-base:          #f4f4f8;
+  --bg-surface:       #eeeef5;
+  --bg-card:          rgba(255, 255, 255, 0.80);
+  --bg-card-hover:    rgba(255, 255, 255, 0.95);
+  --bg-glass:         rgba(255, 255, 255, 0.60);
+  --bg-input:         rgba(255, 255, 255, 0.80);
+
+  --border-subtle:    rgba(0, 0, 0, 0.07);
+  --border-card:      rgba(124, 58, 237, 0.18);
+  --border-input:     rgba(124, 58, 237, 0.30);
+  --border-glass:     rgba(0, 0, 0, 0.10);
+
+  --text-primary:     #0f0f1e;
+  --text-secondary:   #475569;
+  --text-muted:       #94a3b8;
+  --text-placeholder: rgba(0, 0, 0, 0.30);
+
+  --scrollbar-track:  #f4f4f8;
+  --scrollbar-thumb:  #7C3AED;
+
+  --marquee-fade:     #f4f4f8;
+
+  --blob-opacity:     0.08;
+  --skill-bubble-bg:  radial-gradient(circle at 38% 32%, #ebebf8 0%, #ddddf0 100%);
+  --skill-bubble-border: rgba(0, 0, 0, 0.08);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+
+  /* Selection highlight */
+  ::selection {
+    background: rgba(124, 58, 237, 0.3);
+    color: inherit;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENTS
+   ───────────────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Glass cards ──────────────────────────────────────── */
+  .glass {
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+  }
+
+  .glass-dark {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* ── Typography ───────────────────────────────────────── */
+  .gradient-text {
+    background: linear-gradient(135deg, #7C3AED, #A78BFA, #818CF8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .section-subtitle {
+    color: var(--text-secondary);
+    text-align: center;
+    font-size: 1.05rem;
+    margin-bottom: 4rem;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.65;
+  }
+
+  /* ── Buttons ──────────────────────────────────────────── */
+  .btn-primary {
+    position: relative;
+    padding: 0.65rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #7C3AED, #4F46E5);
+    color: #ffffff !important;
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.35);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 35px rgba(124, 58, 237, 0.65);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    position: relative;
+    padding: 0.65rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border: 1.5px solid rgba(124, 58, 237, 0.5);
+    color: #7C3AED;
+    background: transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .btn-outline:hover {
+    border-color: #7C3AED;
+    background: rgba(124, 58, 237, 0.12);
+    box-shadow: 0 0 22px rgba(124, 58, 237, 0.25);
+    color: #7C3AED;
+  }
+
+  /* ── Form inputs ──────────────────────────────────────── */
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.25s ease;
+    background: var(--bg-input);
+    border: 1.5px solid var(--border-input);
+    color: var(--text-primary);
+  }
+
+  .form-input:focus {
+    border-color: rgba(124, 58, 237, 0.65);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  }
+
+  .form-input::placeholder {
+    color: var(--text-placeholder);
+  }
+
+  /* ── Skill bar ────────────────────────────────────────── */
+  .skill-bar {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--border-subtle);
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7C3AED, #A78BFA);
+    box-shadow: 0 0 10px rgba(124, 58, 237, 0.45);
+  }
+
+  /* ── Timeline ─────────────────────────────────────────── */
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, #7C3AED, #4F46E5, transparent);
+    transform: translateX(-50%);
+  }
+
+  /* ── Blob glow ────────────────────────────────────────── */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: var(--blob-opacity);
+    animation: float 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* ── Neon border ──────────────────────────────────────── */
+  .neon-border {
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+  }
+
+  .neon-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #7C3AED, #4F46E5, #7C3AED);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .neon-border:hover::before { opacity: 1; }
+
+  /* ── Skill bubble (used in Skills.jsx) ───────────────── */
+  .skill-bubble-bg {
+    background: var(--skill-bubble-bg);
+    border-color: var(--skill-bubble-border);
+  }
+
+  /* ── Marquee fade edges ───────────────────────────────── */
+  .marquee-fade-left {
+    background: linear-gradient(90deg, var(--marquee-fade), transparent);
+  }
+
+  .marquee-fade-right {
+    background: linear-gradient(-90deg, var(--marquee-fade), transparent);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   LIGHT MODE OVERRIDES  — for Tailwind utility classes that are
+   hardcoded (text-white, text-gray-*, bg-[#...], border-white/*)
+   ───────────────────────────────────────────────────────────────── */
+
+/* Text */
+.light .text-white            { color: #0f0f1e !important; }
+.light .text-gray-100         { color: #1e1e30 !important; }
+.light .text-gray-200         { color: #2a2a40 !important; }
+.light .text-gray-300         { color: #374151 !important; }
+.light .text-gray-400         { color: #4B5563 !important; }
+.light .text-gray-500         { color: #6B7280 !important; }
+.light .text-gray-600         { color: #6B7280 !important; }
+
+/* Borders */
+.light .border-white\/5       { border-color: rgba(0,0,0,0.07) !important; }
+.light .border-white\/10      { border-color: rgba(0,0,0,0.10) !important; }
+
+/* Backgrounds */
+.light .bg-white\/5           { background-color: rgba(0,0,0,0.04) !important; }
+.light .bg-white\/10          { background-color: rgba(0,0,0,0.07) !important; }
+.light .bg-gray-800           { background-color: #e2e2ee !important; }
+.light .bg-gray-900           { background-color: #ebebf5 !important; }
+
+/* Hardcoded dark backgrounds */
+.light .bg-\[\#0a0a0f\]       { background-color: #f4f4f8 !important; }
+.light .bg-\[\#0d0d1a\]       { background-color: #ebebf5 !important; }
+.light .bg-\[\#0f0f1e\]       { background-color: #eeeef5 !important; }
+.light .bg-\[\#1a1a2e\]       { background-color: #e5e5f0 !important; }
+
+/* Nav backdrop */
+.light .bg-\[\#0a0a0f\]\/80   { background-color: rgba(244,244,248,0.88) !important; }
+.light .bg-\[\#0d0d1a\]\/95   { background-color: rgba(235,235,245,0.97) !important; }
+
+/* Skill bubble dark circle override */
+.light .glass-dark {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border-color: rgba(124, 58, 237, 0.15) !important;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* Section bg gradient used in some sections */
+.light section {
+  background-color: transparent;
+}
+
+/* Navbar shadow */
+.light nav {
+  box-shadow: 0 1px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Footer border */
+.light footer {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   KEYFRAMES
+   ───────────────────────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-28px) rotate(4deg); }
+  66%       { transform: translateY(-14px) rotate(-3deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(124, 58, 237, 0.3); }
+  50%       { box-shadow: 0 0 28px rgba(124, 58, 237, 0.75); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CURSOR GLOW
+   ───────────────────────────────────────────────────────────────── */
+.cursor-glow {
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle, rgba(124,58,237,0.75), transparent 70%);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s;
+}
