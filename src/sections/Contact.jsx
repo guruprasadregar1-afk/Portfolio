@@ -100,9 +100,9 @@ const Contact = () => {
     setErrorMsg('');
 
     try {
-      const serviceId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const serviceId  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || 'service_gmail';
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_27za17d';
+      const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || 'eKpZZlSXHUOApaLgp';
 
       await emailjs.send(
         serviceId,
@@ -122,8 +122,23 @@ const Contact = () => {
       setForm(INITIAL_FORM);
       setTimeout(() => setStatus('idle'), 6000);
     } catch (err) {
+      console.warn('EmailJS delivery error:', err);
+      const errorMsgText = err?.text || err?.message || '';
+
+      // If Service ID or template credentials failed, open mailto fail-safe
+      if (errorMsgText.toLowerCase().includes('service') || errorMsgText.toLowerCase().includes('account') || !import.meta.env.VITE_EMAILJS_SERVICE_ID) {
+        const mailtoUrl = `mailto:guruprasadregar1@gmail.com?subject=${encodeURIComponent(`[Portfolio] ${form.subject}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`)}`;
+        window.location.href = mailtoUrl;
+
+        setStatus('success');
+        showToast('Opening your email app to send message...', 'success');
+        setForm(INITIAL_FORM);
+        setTimeout(() => setStatus('idle'), 6000);
+        return;
+      }
+
       setStatus('error');
-      const msg = err?.text || err?.message || 'Failed to send message';
+      const msg = errorMsgText || 'Failed to send message';
       setErrorMsg(msg);
       showToast(msg, 'error');
       setTimeout(() => setStatus('idle'), 6000);
