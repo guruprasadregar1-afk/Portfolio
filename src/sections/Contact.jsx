@@ -6,7 +6,7 @@ import {
   MapPin, Clock,
 } from 'lucide-react';
 import { fadeInUp, fadeInLeft, fadeInRight, viewportOptions } from '../animations/variants';
-import { sendContactMessage } from '../hooks/useApi';
+import emailjs from '@emailjs/browser';
 
 /* ── Owner info — change only here if details change ── */
 const OWNER = {
@@ -100,14 +100,30 @@ const Contact = () => {
     setErrorMsg('');
 
     try {
-      await sendContactMessage(form);
+      const serviceId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          title: form.subject,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+        },
+        publicKey
+      );
+
       setStatus('success');
       showToast('Message sent successfully', 'success');
       setForm(INITIAL_FORM);
       setTimeout(() => setStatus('idle'), 6000);
     } catch (err) {
       setStatus('error');
-      const msg = err.response?.data?.message || 'Failed to send message';
+      const msg = err?.text || err?.message || 'Failed to send message';
       setErrorMsg(msg);
       showToast(msg, 'error');
       setTimeout(() => setStatus('idle'), 6000);
