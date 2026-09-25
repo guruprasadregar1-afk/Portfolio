@@ -3,10 +3,10 @@ import { Github, Linkedin, Instagram, Twitter, Mail, Code2, Heart, ArrowUp } fro
 import { navLinks } from '../data';
 
 const socials = [
-  { icon: Github, href: 'https://github.com/guruprasad', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://www.linkedin.com/in/guruprasadregar', label: 'LinkedIn' },
-  { icon: Instagram, href: 'https://instagram.com/tripti_shri_', label: 'Instagram' },
-  { icon: Mail, href: 'mailto:guruprasadregar1@gmail.com', label: 'Email' },
+  { icon: Github,    href: 'https://github.com/guruprasadregar1-afk',          label: 'GitHub'    },
+  { icon: Linkedin,  href: 'https://www.linkedin.com/in/guru-prasad-769b99227', label: 'LinkedIn'  },
+  { icon: Instagram, href: 'https://www.instagram.com/guruprasad1832',          label: 'Instagram' },
+  { icon: Mail,      href: 'mailto:guruprasadregar1@gmail.com',               label: 'Email'     },
 ];
 
 const Footer = () => {

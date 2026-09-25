@@ -18,20 +18,13 @@ export const sendContactMessage = async (formData) => {
 
 // ─── Resume API ─────────────────────────────────────────────────────
 export const downloadResume = async () => {
-  const response = await api.get('/resume/download', {
-    responseType: 'blob',
-  });
-
-  const url = window.URL.createObjectURL(
-    new Blob([response.data], { type: 'application/pdf' })
-  );
   const link = document.createElement('a');
-  link.href = url;
+  link.href = '/Guru_Prasad_Resume.pdf';
   link.setAttribute('download', 'Guru_Prasad_Resume.pdf');
+  link.target = '_blank';
   document.body.appendChild(link);
   link.click();
   link.remove();
-  window.URL.revokeObjectURL(url);
 };
 
 export const getResumeInfo = async () => {

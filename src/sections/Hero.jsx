@@ -1,24 +1,26 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { ArrowDown, Download, Mail } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { fadeInUp, fadeInRight, staggerContainer } from '../animations/variants';
-import { downloadResume } from '../hooks/useApi';
 import API_URL from '../config/api';
 
 const socials = [
-  { icon: FaGithub,   href: 'https://github.com/guruprasad',                              label: 'GitHub'   },
-  { icon: FaLinkedin, href: 'https://www.linkedin.com/in/guru-prasad-769b99227',                    label: 'LinkedIn' },
-  { icon: Mail,       href: 'mailto:guruprasadregar1@gmail.com',                          label: 'Email'    },
+  { icon: FaGithub,    href: 'https://github.com/guruprasadregar1-afk',             label: 'GitHub'    },
+  { icon: FaLinkedin,  href: 'https://www.linkedin.com/in/guru-prasad-769b99227',    label: 'LinkedIn'  },
+  { icon: FaInstagram, href: 'https://www.instagram.com/guruprasad1832',             label: 'Instagram' },
+  { icon: Mail,        href: 'mailto:guruprasadregar1@gmail.com',                 label: 'Email'     },
 ];
 
 const Hero = () => {
-  const handleDownload = async () => {
-    try {
-      await downloadResume();
-    } catch {
-      window.open(`${API_URL}/api/resume/download`, '_blank');
-    }
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = '/Guru_Prasad_Resume.pdf';
+    link.setAttribute('download', 'Guru_Prasad_Resume.pdf');
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
 
   const scrollToProjects = () =>

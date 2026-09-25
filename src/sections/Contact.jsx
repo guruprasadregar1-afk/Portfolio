@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Send, Github, Linkedin, Mail,
+  Send, Github, Linkedin, Instagram, Mail,
   CheckCircle, AlertCircle, Loader,
   MapPin, Clock,
 } from 'lucide-react';
@@ -19,9 +19,10 @@ const OWNER = {
 };
 
 const socials = [
-  { icon: Github,   href: 'https://github.com/guruprasad',                      label: 'GitHub'   },
-  { icon: Linkedin, href: 'https://www.linkedin.com/in/guru-prasad-769b99227',  label: 'LinkedIn' },
-  { icon: Mail,     href: `mailto:${OWNER.email}`,                              label: 'Email'    },
+  { icon: Github,    href: 'https://github.com/guruprasadregar1-afk',          label: 'GitHub'    },
+  { icon: Linkedin,  href: 'https://www.linkedin.com/in/guru-prasad-769b99227', label: 'LinkedIn'  },
+  { icon: Instagram, href: 'https://www.instagram.com/guruprasad1832',          label: 'Instagram' },
+  { icon: Mail,      href: `mailto:${OWNER.email}`,                             label: 'Email'     },
 ];
 
 const INITIAL_FORM = { name: '', email: '', subject: '', message: '' };
