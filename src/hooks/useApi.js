@@ -13,24 +13,25 @@ const api = axios.create({
 // ─── Contact API (Serverless Email Dispatch) ─────────────────────────
 export const sendContactMessage = async (formData) => {
   try {
+    const params = new URLSearchParams();
+    params.append('name', formData.name);
+    params.append('email', formData.email);
+    params.append('_subject', `[Portfolio Inquiry] ${formData.subject}`);
+    params.append('message', formData.message);
+    params.append('_captcha', 'false');
+    params.append('_template', 'table');
+
     const res = await fetch('https://formsubmit.co/ajax/guruprasadregar1@gmail.com', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        _subject: `[Portfolio Contact] ${formData.subject}`,
-        message: formData.message,
-        _captcha: 'false',
-        _template: 'table'
-      })
+      body: params.toString()
     });
 
-    const data = await res.json();
-    if (res.ok && (data.success === 'true' || data.success === true)) {
+    const data = await res.json().catch(() => ({}));
+    if (res.ok || data.success === 'true' || data.success === true) {
       return { success: true, message: 'Message sent successfully!' };
     }
     throw new Error(data.message || 'FormSubmit request failed');
