@@ -39,9 +39,24 @@ const Field = ({ label, children }) => (
 
 const Contact = () => {
   const [form, setForm]         = useState(INITIAL_FORM);
+  const [honeypot, setHoneypot] = useState('');
   const [status, setStatus]     = useState('idle'); // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('');
   const [toasts, setToasts]     = useState([]);
+  const [cooldown, setCooldown] = useState(0);
+
+  const startCooldown = () => {
+    setCooldown(30);
+    const timer = setInterval(() => {
+      setCooldown(prev => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
 
   const showToast = (message, type = 'success') => {
     const id = Date.now();
@@ -56,6 +71,19 @@ const Contact = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    if (cooldown > 0) return;
+
+    // Honeypot check for bots
+    if (honeypot.trim() !== '') {
+      setStatus('success');
+      showToast('Message sent successfully', 'success');
+      setForm(INITIAL_FORM);
+      setHoneypot('');
+      startCooldown();
+      setTimeout(() => setStatus('idle'), 6000);
+      return;
+    }
 
     // ── Frontend validations ──────────────────────────────────────
     if (!form.name.trim()) {
@@ -120,6 +148,7 @@ const Contact = () => {
       setStatus('success');
       showToast('Message sent successfully', 'success');
       setForm(INITIAL_FORM);
+      startCooldown();
       setTimeout(() => setStatus('idle'), 6000);
     } catch (err) {
       console.warn('EmailJS delivery error:', err);
@@ -277,6 +306,18 @@ const Contact = () => {
               noValidate
               className="rounded-3xl p-8 border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-xl space-y-5"
             >
+              {/* Hidden Honeypot Field */}
+              <input
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={e => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="opacity-0 absolute -z-10 w-0 h-0 pointer-events-none"
+              />
+
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field label="Your Name *">
                   <input
@@ -337,13 +378,15 @@ const Contact = () => {
 
               <motion.button
                 type="submit"
-                disabled={status === 'loading'}
-                whileHover={status !== 'loading' ? { scale: 1.02 } : {}}
-                whileTap={status !== 'loading' ? { scale: 0.98 } : {}}
+                disabled={status === 'loading' || cooldown > 0}
+                whileHover={status !== 'loading' && cooldown === 0 ? { scale: 1.02 } : {}}
+                whileTap={status !== 'loading' && cooldown === 0 ? { scale: 0.98 } : {}}
                 className="w-full btn-primary text-white flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {status === 'loading' ? (
                   <><Loader size={16} className="animate-spin" /> Sending...</>
+                ) : cooldown > 0 ? (
+                  <>Please wait {cooldown}s...</>
                 ) : (
                   <><Send size={16} /> Send Message</>
                 )}
