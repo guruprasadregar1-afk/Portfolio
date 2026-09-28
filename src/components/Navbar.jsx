@@ -63,7 +63,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className={`relative px-3 py-1.5 text-sm font-medium transition-colors duration-200 rounded-lg group ${
+                className={`relative px-2 lg:px-3 py-1.5 text-xs lg:text-sm font-medium transition-colors duration-200 rounded-lg group ${
                   location.pathname === '/' && activeSection === link.href
                     ? 'text-violet-400'
                     : 'text-gray-400 hover:text-white'

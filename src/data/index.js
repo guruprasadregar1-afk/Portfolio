@@ -304,12 +304,79 @@ export const testimonials = [
   },
 ];
 
+// ─── AI Systems ────────────────────────────────────────────────────────
+export const aiSystems = [
+  {
+    id: 'ai-admin-panel',
+    title: 'AI-Built Admin Panel',
+    description: 'A complete admin panel built end-to-end using AI-assisted development, now used in a production system.',
+    badge: 'In production',
+    icon: 'Layout',
+    flow: ['Architecture & Schema', 'AI-Assisted CodeGen', 'Production Release'],
+    techStack: [],
+  },
+  {
+    id: 'ai-domain-search',
+    title: 'AI Domain Search Engine',
+    description: 'Users describe their business idea and the engine generates domain-name suggestions for it. Implemented and running in production.',
+    badge: 'In production',
+    icon: 'Search',
+    flow: ['Describe your business idea', 'AI generates domain names', 'Suggestions returned'],
+    techStack: [],
+  },
+  {
+    id: 'ai-system-guide',
+    title: 'AI System Guide',
+    description: 'An assistant that lets users understand a complete system by asking questions in plain language. The AI answers and gives step-by-step guidance on how to use the system. Implemented and running in production.',
+    badge: 'In production',
+    icon: 'HelpCircle',
+    flow: ['Ask a question', 'AI explains the system', 'Step-by-step usage guidance'],
+    techStack: [],
+  },
+];
+
+// [DRAFT, review wording]
+export const aiWorkflowCopy = 'I am highly proficient with Cursor and Claude and use them for AI-assisted development, from scaffolding and architecture to debugging and code review, while still reviewing, testing, and owning the code that ships.';
+
+export const aiTools = [
+  { name: 'Cursor', icon: 'cursor' },
+  { name: 'Claude', icon: 'claude' },
+];
+
+// ─── Science & Curiosity ─────────────────────────────────────────────
+// [DRAFT, review wording]
+export const scienceIntroCopy = "Alongside software engineering, I'm drawn to physics and the geometry of higher dimensions, and I like turning abstract ideas into something you can see and interact with—for example, a dot trapped in a 2D square, or a ball escaping a sealed 3D box by stepping along a fourth direction.";
+
+export const scienceTopics = [
+  {
+    id: '4th-dimension',
+    title: '4th Dimension',
+    researchId: '4th-dimension',
+    description: 'Spatio-temporal 4D rendering, hyperplane slicing of tesseracts, and SO(4) rotor rotation mechanics.',
+  },
+  {
+    id: 'time-travel',
+    title: 'Time Travel',
+    status: 'Exploring',
+    // [DRAFT, review wording]
+    description: 'Thought experiments and theory around time as a dimension. Early-stage conceptual exploration.',
+  },
+  {
+    id: 'black-hole',
+    title: 'Black Hole Physics',
+    researchId: 'black-hole',
+    description: 'Real-time Schwarzschild geodesics and binary black-hole gravitational lensing shaders.',
+  },
+];
+
 // ─── Nav Links ────────────────────────────────────────────────────────
 export const navLinks = [
   { name: 'Home',     href: 'hero'     },
   { name: 'About',    href: 'about'    },
   { name: 'Skills',   href: 'skills'   },
   { name: 'Projects', href: 'projects' },
+  { name: 'AI',       href: 'ai'       },
+  { name: 'Science',  href: 'science'  },
   { name: 'Research', href: 'research' },
   { name: 'Services', href: 'services' },
   { name: 'Journey',  href: 'journey'  },

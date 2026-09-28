@@ -22,26 +22,33 @@ const skills = [
   { name: 'VS Code',      level: 92, category: 'Tools',    note: 'Advanced', color: '#007ACC', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
   { name: 'Postman',      level: 80, category: 'Tools',    note: 'Advanced', color: '#FF6C37', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
 
-  { name: 'Solidity',     level: 80, category: 'Web3',     note: 'Advanced', color: '#9B9B9B', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
-  { name: 'Web3 Basics',  level: 80, category: 'Web3',     note: 'Advanced', color: '#F16822', emoji: '🔷' },
-  { name: 'Ethers.js',    level: 80, category: 'Web3',     note: 'Advanced', color: '#6B8CFF', emoji: '⛓️' },
+  { name: 'Solidity',     level: 80, category: 'Web3',       note: 'Advanced', color: '#9B9B9B', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
+  { name: 'Web3 Basics',  level: 80, category: 'Web3',       note: 'Advanced', color: '#F16822', emoji: '🔷' },
+  { name: 'Ethers.js',    level: 80, category: 'Web3',       note: 'Advanced', color: '#6B8CFF', emoji: '⛓️' },
+
+  { name: 'Cursor',                   level: 92, category: 'AI & Tools', note: 'Advanced', color: '#7C3AED', emoji: '🤖' },
+  { name: 'Claude',                   level: 90, category: 'AI & Tools', note: 'Advanced', color: '#D97706', emoji: '🧠' },
+  { name: 'LLM APIs',                 level: 88, category: 'AI & Tools', note: 'Advanced', color: '#8B5CF6', emoji: '⚡' },
+  { name: 'AI-assisted development', level: 95, category: 'AI & Tools', note: 'Advanced', color: '#10B981', emoji: '🛠️' },
 ];
 
 // Which categories to show side-by-side in "All" mode
 // [ [left, right], [left, right] ] — pairs
 const categoryPairs = [
-  ['Frontend', 'Backend'],
-  ['Tools',    'Web3'   ],
+  ['Frontend',   'Backend'   ],
+  ['Tools',      'Web3'      ],
+  ['AI & Tools', null        ],
 ];
 
 const categoryConfig = {
-  Frontend: { label: 'Frontend Development', accent: '#7C3AED' },
-  Backend:  { label: 'Backend Development',  accent: '#22C55E' },
-  Tools:    { label: 'Dev Tools',            accent: '#007ACC' },
-  Web3:     { label: 'Blockchain & Web3',    accent: '#F97316' },
+  Frontend:   { label: 'Frontend Development',   accent: '#7C3AED' },
+  Backend:    { label: 'Backend Development',    accent: '#22C55E' },
+  Tools:      { label: 'Dev Tools',              accent: '#007ACC' },
+  Web3:       { label: 'Blockchain & Web3',      accent: '#F97316' },
+  'AI & Tools': { label: 'AI & Development Tools', accent: '#8B5CF6' },
 };
 
-const filterTabs = ['All', 'Frontend', 'Backend', 'Tools', 'Web3'];
+const filterTabs = ['All', 'Frontend', 'Backend', 'Tools', 'Web3', 'AI & Tools'];
 
 const noteStyle = {
   Expert:       { color: '#34D399', bg: 'rgba(52,211,153,0.10)'  },

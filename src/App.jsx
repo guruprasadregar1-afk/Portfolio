@@ -9,6 +9,8 @@ import Hero from './sections/Hero';
 import About from './sections/About';
 import Skills from './sections/Skills';
 import Projects from './sections/Projects';
+import AI from './sections/AI';
+import Science from './sections/Science';
 import Research from './sections/Research';
 import Services from './sections/Services';
 import Journey from './sections/Journey';
@@ -39,6 +41,8 @@ const HomePage = () => {
       <About />
       <Skills />
       <Projects />
+      <AI />
+      <Science />
       <Research />
       <Services />
       <Journey />
