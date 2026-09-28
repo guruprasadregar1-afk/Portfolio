@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useTheme } from './hooks/useTheme';
 
@@ -17,8 +17,14 @@ import Journey from './sections/Journey';
 // import Testimonials from './sections/Testimonials';
 import Contact from './sections/Contact';
 
-import ResearchDetail from './pages/ResearchDetail';
-import NotFound from './pages/NotFound';
+const ResearchDetail = lazy(() => import('./pages/ResearchDetail'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0a0a0f]">
+    <div className="w-8 h-8 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
+  </div>
+);
 
 const HomePage = () => {
   const location = useLocation();
@@ -73,11 +79,13 @@ const App = () => {
       >
         <Navbar isDark={isDark} toggleTheme={toggleTheme} />
 
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/research/:id" element={<ResearchDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/research/:id" element={<ResearchDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
 
         <Footer />
       </div>
