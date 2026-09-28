@@ -1,13 +1,7 @@
 import { motion } from 'framer-motion';
 import { Code, Layers, Briefcase, Globe } from 'lucide-react';
 import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer, viewportOptions } from '../animations/variants';
-
-const stats = [
-  { icon: 'briefcase', value: '4.5+', label: 'Years Experience'      },
-  { icon: 'layers',    value: '8+',   label: 'Projects Delivered'    },
-  { icon: 'globe',     value: '10+',  label: 'International Clients' },
-  { icon: 'code',      value: '20+',  label: 'Technologies'          },
-];
+import { stats } from '../data';
 
 const iconMap = { code: Code, layers: Layers, briefcase: Briefcase, globe: Globe };
 
@@ -37,7 +31,7 @@ const About = () => (
               I'm{' '}
               <span className="text-white font-semibold">Guru Prasad</span>
               , a Senior Full Stack Developer with{' '}
-              <span className="text-violet-400 font-semibold">4.5+ years of experience</span>{' '}
+              <span className="text-violet-400 font-semibold">5+ years of experience</span>{' '}
               at Dotsquares Technologies, Jaipur — delivering scalable, production-grade web applications
               for international clients across the UK, EU, and US.
             </p>

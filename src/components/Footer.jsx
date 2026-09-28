@@ -26,8 +26,7 @@ const Footer = () => {
               <span className="text-xl font-bold gradient-text">Guru.dev</span>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-              Senior Full Stack Developer with 4.5+ years of experience building scalable, production-grade applications using React.js, Next.js, Node.js, NestJS, and MongoDB for UK, EU, and US clients, with expertise in MERN stack, micro-frontends, and Web3.
-
+              Senior Full Stack Developer with 5+ years of experience building scalable, production-grade applications using React.js, Next.js, Node.js, NestJS, and MongoDB for UK, EU, and US clients, with expertise in MERN stack, micro-frontends, and Web3.
             </p>
           </div>
 

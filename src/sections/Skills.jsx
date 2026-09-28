@@ -22,9 +22,9 @@ const skills = [
   { name: 'VS Code',      level: 92, category: 'Tools',    note: 'Advanced', color: '#007ACC', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
   { name: 'Postman',      level: 80, category: 'Tools',    note: 'Advanced', color: '#FF6C37', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
 
-  { name: 'Solidity',     level: 80, category: 'Web3',       note: 'Advanced', color: '#9B9B9B', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
-  { name: 'Web3 Basics',  level: 80, category: 'Web3',       note: 'Advanced', color: '#F16822', emoji: '🔷' },
-  { name: 'Ethers.js',    level: 80, category: 'Web3',       note: 'Advanced', color: '#6B8CFF', emoji: '⛓️' },
+  { name: 'Solidity',         level: 60, category: 'Web3',       note: 'Intermediate', color: '#9B9B9B', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
+  { name: 'Web3 Development', level: 80, category: 'Web3',       note: 'Advanced',     color: '#F16822', emoji: '🔷' },
+  { name: 'Ethers.js',        level: 60, category: 'Web3',       note: 'Advanced',     color: '#6B8CFF', emoji: '⛓️' },
 
   { name: 'Cursor',                   level: 92, category: 'AI & Tools', note: 'Advanced', color: '#7C3AED', emoji: '🤖' },
   { name: 'Claude',                   level: 90, category: 'AI & Tools', note: 'Advanced', color: '#D97706', emoji: '🧠' },

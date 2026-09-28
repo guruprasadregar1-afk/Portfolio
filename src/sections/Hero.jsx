@@ -4,6 +4,7 @@ import { ArrowDown, Download, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { fadeInUp, fadeInRight, staggerContainer } from '../animations/variants';
 import API_URL from '../config/api';
+import { aiTools } from '../data';
 
 const socials = [
   { icon: FaGithub,    href: 'https://github.com/guruprasadregar1-afk',             label: 'GitHub'    },
@@ -74,11 +75,25 @@ const Hero = () => {
               />
             </motion.div>
 
-            <motion.p variants={fadeInUp} className="text-gray-400 text-lg leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
-              Results-driven Senior Full Stack Developer with <strong className="text-white">4.5+ years</strong> of experience
+            <motion.p variants={fadeInUp} className="text-gray-400 text-lg leading-relaxed mb-4 max-w-lg mx-auto lg:mx-0">
+              Results-driven Senior Full Stack Developer with <strong className="text-white">5+ years</strong> of experience
               building scalable, production-grade web applications for international clients across
               UK, EU, and US markets. Deep expertise in MERN, Next.js, NestJS, micro-frontends, and Web3.
             </motion.p>
+
+            {/* // [DRAFT, review wording] AI Proficiency */}
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-8 text-sm text-gray-400 max-w-lg mx-auto lg:mx-0">
+              <span>Highly proficient with</span>
+              {aiTools.map((tool) => (
+                <span
+                  key={tool.name}
+                  className="px-2.5 py-0.5 rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-300 text-xs font-semibold"
+                >
+                  {tool.name}
+                </span>
+              ))}
+              <span>for AI-assisted development.</span>
+            </motion.div>
 
             <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 justify-center lg:justify-start mb-10">
               <motion.button
@@ -143,6 +158,8 @@ const Hero = () => {
                 { label: 'Web3',     top: '75%', left: '30%', delay: 1   },
                 { label: 'Next.js',  top: '40%', left: '82%', delay: 1.5 },
                 { label: 'AWS',      top: '15%', left: '70%', delay: 0.8 },
+                { label: 'Cursor',   top: '82%', left: '68%', delay: 1.2 },
+                { label: 'Claude',   top: '22%', left: '-2%', delay: 1.7 },
               ].map(({ label, top, left, delay }) => (
                 <motion.div
                   key={label}

@@ -167,7 +167,7 @@ const Contact = () => {
             Let's <span className="gradient-text">Work Together</span>
           </h2>
           <p className="section-subtitle">
-            Have a project, freelance work, or collaboration opportunity? I'd love to hear from you.
+            Have a project or collaboration opportunity? I'd love to hear from you.
           </p>
         </motion.div>
 

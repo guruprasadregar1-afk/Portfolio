@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { Layout, Search, HelpCircle, CheckCircle2, ArrowRight, Bot, Cpu } from 'lucide-react';
+import { Layout, Search, HelpCircle, ArrowRight, Cpu } from 'lucide-react';
 import { fadeInUp, staggerContainer, viewportOptions } from '../animations/variants';
-import { aiSystems, aiWorkflowCopy, aiTools } from '../data';
+import { aiSystems } from '../data';
 
 const iconMap = {
   Layout: Layout,
@@ -16,9 +16,9 @@ const AISystemCard = ({ system }) => {
     <motion.div
       variants={fadeInUp}
       whileHover={{ y: -6 }}
-      className="rounded-3xl p-7 border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-xl flex flex-col justify-between transition-all duration-300 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10"
+      className="rounded-3xl p-7 border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-xl flex flex-col justify-between h-full transition-all duration-300 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10"
     >
-      <div>
+      <div className="flex flex-col flex-1">
         {/* Top Badge */}
         <div className="flex items-center justify-between gap-2 mb-5">
           <div className="w-12 h-12 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
@@ -40,18 +40,18 @@ const AISystemCard = ({ system }) => {
 
         {/* 3-Step Mini Flow */}
         {system.flow && system.flow.length > 0 && (
-          <div className="p-4 rounded-2xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 mb-4">
+          <div className="p-4 rounded-2xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 mt-auto mb-4">
             <p className="text-[11px] font-medium tracking-wider uppercase text-gray-500 dark:text-gray-400 mb-3">
               System Process Flow
             </p>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-1.5">
+            <div className="flex flex-wrap items-center gap-1.5 max-w-full">
               {system.flow.map((step, idx) => (
-                <div key={idx} className="flex items-center gap-1.5 w-full sm:w-auto">
-                  <span className="px-2.5 py-1 rounded-lg bg-violet-500/10 dark:bg-violet-500/20 text-violet-700 dark:text-violet-300 text-xs font-medium text-center flex-1 sm:flex-initial">
+                <div key={idx} className="flex items-center gap-1.5">
+                  <span className="px-2.5 py-1 rounded-lg bg-violet-500/10 dark:bg-violet-500/20 text-violet-700 dark:text-violet-300 text-xs font-medium max-w-full break-words">
                     {step}
                   </span>
                   {idx < system.flow.length - 1 && (
-                    <ArrowRight size={12} className="text-gray-400 hidden sm:block shrink-0" />
+                    <ArrowRight size={12} className="text-gray-400 shrink-0" />
                   )}
                 </div>
               ))}
@@ -110,48 +110,11 @@ const AI = () => {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOptions}
-          className="grid md:grid-cols-3 gap-8 mb-12"
+          className="grid md:grid-cols-3 gap-8 items-stretch"
         >
           {aiSystems.map((system) => (
             <AISystemCard key={system.id} system={system} />
           ))}
-        </motion.div>
-
-        {/* How I Work with AI Block */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOptions}
-          variants={fadeInUp}
-          className="rounded-3xl p-8 border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-xl"
-        >
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="space-y-3 max-w-3xl">
-              <div className="flex items-center gap-2">
-                <Bot size={20} className="text-violet-400" />
-                <h3 className="text-lg font-bold text-black dark:text-white">
-                  How I Work with AI
-                </h3>
-              </div>
-              {/* // [DRAFT, review wording] */}
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
-                {aiWorkflowCopy}
-              </p>
-            </div>
-
-            {/* Tool Badges */}
-            <div className="flex items-center gap-3 shrink-0">
-              {aiTools.map((tool) => (
-                <div
-                  key={tool.name}
-                  className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-violet-700 dark:text-violet-300 text-xs font-semibold"
-                >
-                  <Cpu size={15} />
-                  {tool.name}
-                </div>
-              ))}
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>

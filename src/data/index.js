@@ -166,7 +166,7 @@ export const skills = [
 
 // ─── Stats ────────────────────────────────────────────────────────────
 export const stats = [
-  { label: 'Years Experience', value: '4.5+', icon: 'briefcase' },
+  { label: 'Years Experience', value: '5+', icon: 'briefcase' },
   { label: 'Projects Delivered', value: '8+',  icon: 'layers'    },
   { label: 'International Clients', value: '10+', icon: 'globe'  },
   { label: 'Technologies', value: '20+', icon: 'code'            },
@@ -309,17 +309,17 @@ export const aiSystems = [
   {
     id: 'ai-admin-panel',
     title: 'AI-Built Admin Panel',
-    description: 'A complete admin panel built end-to-end using AI-assisted development, now used in a production system.',
-    badge: 'In production',
+    description: 'A complete admin panel built end-to-end using AI-assisted development. Completed and deployed in production.',
+    badge: 'Live in production',
     icon: 'Layout',
-    flow: ['Architecture & Schema', 'AI-Assisted CodeGen', 'Production Release'],
+    flow: [],
     techStack: [],
   },
   {
     id: 'ai-domain-search',
     title: 'AI Domain Search Engine',
-    description: 'Users describe their business idea and the engine generates domain-name suggestions for it. Implemented and running in production.',
-    badge: 'In production',
+    description: 'Users describe their business idea and the engine generates domain-name suggestions for it. Completed and deployed in production.',
+    badge: 'Live in production',
     icon: 'Search',
     flow: ['Describe your business idea', 'AI generates domain names', 'Suggestions returned'],
     techStack: [],
@@ -327,8 +327,8 @@ export const aiSystems = [
   {
     id: 'ai-system-guide',
     title: 'AI System Guide',
-    description: 'An assistant that lets users understand a complete system by asking questions in plain language. The AI answers and gives step-by-step guidance on how to use the system. Implemented and running in production.',
-    badge: 'In production',
+    description: 'An assistant that lets users understand a complete system by asking questions in plain language. The AI answers and gives step-by-step guidance on how to use it. Completed and deployed in production.',
+    badge: 'Live in production',
     icon: 'HelpCircle',
     flow: ['Ask a question', 'AI explains the system', 'Step-by-step usage guidance'],
     techStack: [],
