@@ -33,14 +33,17 @@ export const researchProjects = [
     implementation:
       'Architected with Vite, React, Three.js, and WebXR integration (@react-three/xr patterns). Features a Theme Park Gate 3D launcher with hybrid 2D/3D UI overlays, permitting seamless mode switching between Mobile VR, Desktop PC VR, and 2D canvas mode. Standardized assets using glTF/GLB models with low-draw-call material passes. HTTPS tunneling (ngrok) and secure context configuration enabled remote mobile WebXR testing on Android Chrome.',
     results:
-      'Phase 3 completed with both Prehistoric Expedition and Coaster rides fully functional in 2D fallback and WebXR modes. Motion-to-photon latency measured within acceptable thresholds (< 50ms perceived head rotation latency). Mobile performance hit target frame rates (45–60 FPS) on mid-range Android Chrome hardware. Key limitations: iOS Safari lacks native WebXR support (restricting Apple devices to 2D mode), and high-poly 3D models require aggressive asset optimization to avoid thermal throttling during extended mobile VR sessions.',
+      'Phase 3 completed with both Prehistoric Expedition and Coaster rides fully functional in 2D fallback and WebXR modes. Motion-to-photon latency measured within acceptable thresholds (< 50ms perceived head rotation latency). Mobile performance hit target frame rates (45–60 FPS) on mid-range Android Chrome hardware.',
+    limitations:
+      'iOS Safari lacks native WebXR support (restricting Apple devices to 2D canvas mode). High-poly 3D models require aggressive asset optimization to avoid thermal throttling during extended mobile VR sessions.',
+    futureWork:
+      'WebXR 6DoF controller input mapping for mobile VR, procedural terrain generation, and automated asset LOD pipelines.',
     techStack: ['Three.js', 'WebXR', 'React.js', 'Vite', 'JavaScript', 'GLTF/GLB'],
     github: 'https://github.com/guruprasadregar1-afk/dino-vr-frontend',
     live: 'https://dino-vr-frontend.vercel.app/',
     image: '/placeholder-research.png',
     featured: true,
   },
-  // [DRAFT — sourced from actual repo code (no README available), review before publishing]
   {
     id: 'spatial-web',
     title: 'Spatial Web Engine',
@@ -53,7 +56,11 @@ export const researchProjects = [
     implementation:
       'Backend (Node.js/Express/TypeScript): Engineered a Spatial Graph relational model with node types (root, section, panel, card, building, landmark, connector) managed via Prisma ORM and PostGIS spatial queries. Includes rate limiting, request ID tracing, and security headers. Frontend (Next.js/TypeScript/Tailwind): Implemented Three.js 3D canvas components (e.g. JaipurShowcase), Zustand global state store for active scene nodes, and MediaPipe gesture recognition pipelines for touchless interaction.',
     results:
-      'Prototype state. Successfully established the core relational schema for spatial graph entities and demonstrated 3D viewport rendering with interactive node selection and vision-based gesture tracking in Next.js. Deployed to Vercel production infrastructure. Limitations: Full backend-frontend graph sync remains under active integration, and gesture recognition sensitivity varies across non-standard webcam environments.',
+      'Prototype state. Successfully established the core relational schema for spatial graph entities and demonstrated 3D viewport rendering with interactive node selection and vision-based gesture tracking in Next.js. Deployed to Vercel production infrastructure.',
+    limitations:
+      'Full real-time synchronization between the PostgreSQL/PostGIS spatial graph backend and Next.js frontend state remains under active integration. MediaPipe hand-tracking gesture sensitivity varies under non-standard ambient lighting and low-resolution webcam conditions.',
+    futureWork:
+      'Bi-directional WebSockets spatial graph sync, multi-user spatial presence rooms, and WebXR AR passthrough viewport integration.',
     techStack: ['Next.js', 'TypeScript', 'Three.js', 'React Three Fiber', 'MediaPipe', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'Tailwind CSS', 'Zustand'],
     github: null,
     githubBackend: 'https://github.com/guruprasadregar1-afk/Spatial_Web_backen',
@@ -62,7 +69,6 @@ export const researchProjects = [
     image: '/placeholder-research.png',
     featured: true,
   },
-  // [DRAFT — sourced from repo README, review before publishing]
   {
     id: 'emotion-engine',
     title: 'Emotion Engine',
@@ -75,14 +81,17 @@ export const researchProjects = [
     implementation:
       'Built with Python 3.11, FastAPI, PyTorch, HuggingFace Transformers, and Piper TTS. Features REST endpoints (/narrate, /health), Pydantic request validation, a character voice registry, automated voice model downloads, and comprehensive Pytest suite.',
     results:
-      'Achieved fully offline text-to-speech narration with zero cloud API token cost and low memory overhead on standard CPU hardware. Demonstrated multi-character voice mapping and automated emotion tag injection. Limitations: Synthesis speed depends on CPU thread count, and prosody modulation depth is constrained by the underlying ONNX voice model capabilities.',
+      'Achieved fully offline text-to-speech narration with zero cloud API token cost and low memory overhead on standard CPU hardware. Demonstrated multi-character voice mapping and automated emotion tag injection.',
+    limitations:
+      'Synthesis throughput depends heavily on available CPU thread counts. Dynamic prosody modulation depth is constrained by the ONNX voice model capabilities used by Piper TTS.',
+    futureWork:
+      'Streaming chunked audio generation over WebSockets, custom voice fine-tuning scripts, and automated multi-character script parsing.',
     techStack: ['Python', 'FastAPI', 'PyTorch', 'HuggingFace', 'Piper TTS', 'Pydub', 'Uvicorn', 'Pydantic', 'Pytest'],
     github: 'https://github.com/guruprasadregar1-afk/emotion_engine',
     live: null,
     image: '/placeholder-research.png',
     featured: true,
   },
-  // [DRAFT — sourced from repo README, review before publishing]
   {
     id: 'black-hole',
     title: 'Black Hole Physics & Lensing Engine',
@@ -95,14 +104,25 @@ export const researchProjects = [
     implementation:
       'Architected with TypeScript, GLSL fragment shaders, Three.js, and Vitest. Modularized into single-body Schwarzschild geodesics (src/blackhole/) and binary merger dynamics (src/binary-blackhole/). Includes a suite of 50 unit tests across 12 test modules verifying mathematical rigor.',
     results:
-      'Passed 50 unit tests verifying physical accuracy of geodesic paths and strain envelopes. Real-time GLSL ray-marching shaders rendered fluid gravitational lensing effects at 60 FPS on standard WebGL hardware. Deployed live on Vercel. Limitations: Uses analytical GR approximations rather than full 3D numerical relativity Einstein field equations.',
+      'Passed 50 unit tests verifying physical accuracy of geodesic paths and strain envelopes. Real-time GLSL ray-marching shaders rendered fluid gravitational lensing effects at 60 FPS on standard WebGL hardware. Deployed live on Vercel.',
+    validation:
+      'Physical accuracy of geodesic paths and strain envelopes verified across 50 unit tests in 12 test modules. Tested analytical benchmarks include Schwarzschild radius r_s = 2GM/c², photon sphere radius r_ph = 3GM/c², critical impact parameter b_c = 3√3 GM/c², weak-field deflection δφ ≈ 4GM/(c²b), and Peters gravitational-wave orbital decay rate and inspiral coalescence time.',
+    limitations:
+      'Uses non-spinning Schwarzschild equatorial ray-tracing and summed Newtonian/Schwarzschild accelerations for binary systems rather than full 3D numerical relativity Einstein field equation solvers or Kerr spinning black hole metrics.',
+    futureWork:
+      'Kerr spinning black hole frame dragging shaders, disk accretion thermal spectrum rendering, and WebGPU compute shader ray-marching.',
+    references: [
+      {
+        label: 'Peters, P. C. (1964). Gravitational radiation and the motion of two point masses. Physical Review, 136(4B), B1224.',
+        url: 'https://doi.org/10.1103/PhysRev.136.B1224',
+      },
+    ],
     techStack: ['TypeScript', 'GLSL', 'Three.js', 'WebGL', 'Vitest', 'Vite'],
     github: 'https://github.com/guruprasadregar1-afk/blackhole-physics',
     live: 'https://blackhole-physics.vercel.app',
     image: '/placeholder-research.png',
     featured: true,
   },
-  // [DRAFT — sourced from repo README and engine source, review before publishing]
   {
     id: '4th-dimension',
     title: '4th Dimension Representation Platform',
@@ -116,6 +136,10 @@ export const researchProjects = [
       'Engine (@4th-dimension/engine): Zero-dependency TypeScript engine providing 4D math, polytope geometry, hyperplane slicing algorithms, XPBD physics solvers, and time-slicing renderers. Platform (4th-dimension): Next.js App Router frontend with Three.js viewer embeds, time scrubber UI, Zustand state management, and a NestJS + MongoDB backend supporting 4D Gaussian primitive streaming (embedded & GridFS) and multi-format asset import (.json, .ply, .splat).',
     results:
       'In active development as a demonstrable proof-of-concept. Features a functional 4-level onboarding puzzle progression (Level 1: 2D Flatland trap -> Level 2: Sealed 3D chamber -> Level 3: Stepping into the 4th dimension via W-position translation -> Level 4: Escaping via the 4th-dimension shortcut). Proves the practical mechanics of SO(4) rotor rotations and 4D hyperplane slicing for spatial interaction, while full 4D scene splat rendering is actively being scaled.',
+    limitations:
+      'Full 4D spatio-temporal Gaussian splat rendering is in prototype stage. Real-time XPBD soft-body collision response for complex 4D polytopes is computationally intensive in browser main thread.',
+    futureWork:
+      'WebGPU compute pipeline for 4D splat sorting, expanding the 4-level puzzle progression, and export utilities for 4D animated mesh formats.',
     techStack: ['TypeScript', 'Next.js', 'Three.js', 'NestJS', 'MongoDB', 'GridFS', 'XPBD Physics', 'Vite', 'Vitest', 'Tailwind CSS'],
     github: null,
     githubBackend: 'https://github.com/guruprasadregar1-afk/4th-dimension-engine',
@@ -247,7 +271,8 @@ export const timeline = [
   {
     year: '2023–24',
     title: 'AI Platform & Micro-Frontend',
-    desc: 'Architected an AI chat platform (ChatGPT-like) with LLM streaming, and implemented micro-frontend architecture patterns reducing release cycle times significantly.',
+    // TODO: Add real release cycle reduction metric if available
+    desc: 'Architected an AI chat platform (ChatGPT-like) with LLM streaming, and implemented micro-frontend architecture patterns reducing release cycle times.',
     type: 'project',
   },
   {
@@ -353,13 +378,6 @@ export const scienceTopics = [
     title: '4th Dimension',
     researchId: '4th-dimension',
     description: 'Spatio-temporal 4D rendering, hyperplane slicing of tesseracts, and SO(4) rotor rotation mechanics.',
-  },
-  {
-    id: 'time-travel',
-    title: 'Time Travel',
-    status: 'Exploring',
-    // [DRAFT, review wording]
-    description: 'Thought experiments and theory around time as a dimension. Early-stage conceptual exploration.',
   },
   {
     id: 'black-hole',
