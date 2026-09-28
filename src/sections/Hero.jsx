@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import { ArrowDown, Download, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowDown, Download, Mail, ExternalLink } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { fadeInUp, fadeInRight, staggerContainer } from '../animations/variants';
-import API_URL from '../config/api';
 import { aiTools } from '../data';
 
 const socials = [
@@ -14,16 +14,6 @@ const socials = [
 ];
 
 const Hero = () => {
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = '/Guru_Prasad_Resume.pdf';
-    link.setAttribute('download', 'Guru_Prasad_Resume.pdf');
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  };
-
   const scrollToProjects = () =>
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
 
@@ -75,10 +65,9 @@ const Hero = () => {
               />
             </motion.div>
 
+            {/* // [DRAFT, review wording] */}
             <motion.p variants={fadeInUp} className="text-gray-400 text-lg leading-relaxed mb-4 max-w-lg mx-auto lg:mx-0">
-              Results-driven Senior Full Stack Developer with <strong className="text-white">5+ years</strong> of experience
-              building scalable, production-grade web applications for international clients across
-              UK, EU, and US markets. Deep expertise in MERN, Next.js, NestJS, micro-frontends, and Web3.
+              Senior Full Stack Developer with <strong className="text-white">5+ years</strong> of experience building production web applications for international clients across the UK, EU, and US, with a growing focus on AI-powered systems and interactive physics visualizations. Deep expertise in MERN, Next.js, NestJS, micro-frontends, and Web3.
             </motion.p>
 
             {/* // [DRAFT, review wording] AI Proficiency */}
@@ -95,7 +84,7 @@ const Hero = () => {
               <span>for AI-assisted development.</span>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 justify-center lg:justify-start mb-10">
+            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 justify-center lg:justify-start mb-4">
               <motion.button
                 onClick={scrollToProjects}
                 className="btn-primary text-white flex items-center gap-2"
@@ -106,15 +95,32 @@ const Hero = () => {
                 <ArrowDown size={16} />
               </motion.button>
 
-              <motion.button
-                onClick={handleDownload}
+              <motion.a
+                href="/Guru_Prasad_Resume.pdf"
+                download="Guru_Prasad_Resume.pdf"
                 className="btn-outline flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
               >
                 <Download size={16} />
                 Download Resume
-              </motion.button>
+              </motion.a>
+            </motion.div>
+
+            {/* See the work row */}
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-8 text-xs text-gray-400 max-w-lg mx-auto lg:mx-0">
+              <span className="font-medium text-gray-500">See the work:</span>
+              <Link to="/research/4th-dimension" className="text-violet-400 hover:underline font-medium flex items-center gap-0.5">
+                4D puzzle <ExternalLink size={11} />
+              </Link>
+              <span className="text-gray-600">•</span>
+              <a href="https://blackhole-physics.vercel.app" target="_blank" rel="noopener noreferrer" className="text-violet-400 hover:underline font-medium flex items-center gap-0.5">
+                black-hole engine <ExternalLink size={11} />
+              </a>
+              <span className="text-gray-600">•</span>
+              <button onClick={() => document.getElementById('ai')?.scrollIntoView({ behavior: 'smooth' })} className="text-violet-400 hover:underline font-medium flex items-center gap-0.5">
+                AI systems <ArrowDown size={11} />
+              </button>
             </motion.div>
 
             <motion.div variants={fadeInUp} className="flex items-center gap-4 justify-center lg:justify-start">
