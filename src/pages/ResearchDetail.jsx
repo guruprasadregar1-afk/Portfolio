@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Beaker, CheckCircle2, Clock, ExternalLink, Github, FileText, Cpu, Target, Award, Camera, Video } from 'lucide-react';
+import { ArrowLeft, Beaker, CheckCircle2, Clock, ExternalLink, Github, FileText, Cpu, Target, Award, Camera, Video, ShieldCheck, AlertTriangle, Sparkles, BookOpen } from 'lucide-react';
 import { researchProjects } from '../data';
 import NotFound from './NotFound';
 
@@ -249,13 +249,89 @@ const ResearchDetail = () => {
             <div className="flex items-center gap-3 mb-4 text-violet-400">
               <Award size={22} />
               <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                4. Findings, Results & Limitations
+                4. Findings & Experimental Results
               </h2>
             </div>
             <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
               {project.results}
             </p>
           </section>
+
+          {/* Validation */}
+          {project.validation && (
+            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-4 text-violet-400">
+                <ShieldCheck size={22} />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                  Test Coverage & Experimental Validation
+                </h2>
+              </div>
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                {project.validation}
+              </p>
+            </section>
+          )}
+
+          {/* Limitations */}
+          {project.limitations && (
+            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-4 text-violet-400">
+                <AlertTriangle size={22} />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                  Technical Limitations & Edge Cases
+                </h2>
+              </div>
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                {project.limitations}
+              </p>
+            </section>
+          )}
+
+          {/* Future Work */}
+          {project.futureWork && (
+            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-4 text-violet-400">
+                <Sparkles size={22} />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                  Planned Extensions & Future Work
+                </h2>
+              </div>
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                {project.futureWork}
+              </p>
+            </section>
+          )}
+
+          {/* References */}
+          {project.references && project.references.length > 0 && (
+            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-4 text-violet-400">
+                <BookOpen size={22} />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                  Academic & Literature References
+                </h2>
+              </div>
+              <ul className="space-y-3">
+                {project.references.map((ref, idx) => (
+                  <li key={idx} className="text-gray-300 text-sm leading-relaxed">
+                    {ref.url ? (
+                      <a
+                        href={ref.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-violet-400 hover:underline flex items-start gap-1.5"
+                      >
+                        <span>• {ref.label}</span>
+                        <ExternalLink size={13} className="shrink-0 mt-0.5" />
+                      </a>
+                    ) : (
+                      <span>• {ref.label}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Links / Actions */}
           {(project.github || project.githubBackend || project.githubFrontend || project.live) && (

@@ -69,7 +69,7 @@ const Science = () => {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOptions}
-            className="grid md:grid-cols-3 gap-6"
+            className="grid md:grid-cols-2 gap-6"
           >
             {scienceTopics.map((topic) => {
               // Dynamically read status from researchProjects if researchId exists
@@ -97,7 +97,6 @@ const Science = () => {
                       {topic.title}
                     </h4>
 
-                    {/* // [DRAFT, review wording] for time-travel or general copy */}
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
                       {topic.description}
                     </p>
@@ -119,6 +118,11 @@ const Science = () => {
               );
             })}
           </motion.div>
+
+          {/* // [DRAFT, review wording] */}
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-4 text-center sm:text-left">
+            Also curious about time and relativity.
+          </p>
         </div>
 
         {/* My Research So Far Row */}
