@@ -193,7 +193,7 @@ const Contact = () => {
             Contact Me
           </p>
           <h2 className="section-title">
-            Let's <span className="gradient-text">Work Together</span>
+            Let's Build <span className="gradient-text">Something Unique</span>
           </h2>
           <p className="section-subtitle">
             Have a project or collaboration opportunity? I'd love to hear from you.

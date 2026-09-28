@@ -98,7 +98,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
               className="hidden md:block btn-primary text-white"
               whileTap={{ scale: 0.97 }}
             >
-              Hire Me
+              Contact Me
             </motion.button>
 
             <button
@@ -140,7 +140,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
                 onClick={() => scrollTo('contact')}
                 className="btn-primary text-white mt-2 w-full"
               >
-                Hire Me
+                Contact Me
               </button>
             </div>
           </motion.div>
