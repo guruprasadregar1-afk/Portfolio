@@ -23,10 +23,7 @@ const Footer = () => {
             <span className="text-xl font-bold gradient-text">Guru.dev</span>
           </div>
 
-          <h3 className="text-2xl font-bold text-white mb-2">Let's Connect</h3>
-          <p className="text-gray-400 text-sm leading-relaxed mb-6">
-            Senior Full Stack Developer with 5+ years of experience building scalable, production-grade applications using React.js, Next.js, Node.js, NestJS, and Web3. Let's work together to build something unique.
-          </p>
+          <h3 className="text-2xl font-bold text-white mb-6">Let's Connect</h3>
 
           <div className="flex justify-center gap-3">
             {socials.map(({ icon: Icon, href, label }) => (

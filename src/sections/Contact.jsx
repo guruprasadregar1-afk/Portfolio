@@ -275,25 +275,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Socials */}
-            <div className="rounded-3xl p-6 border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-xl">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Connect with me</p>
-              <div className="flex gap-3">
-                {socials.map(({ icon: Icon, href, label }) => (
-                  <motion.a
-                    key={label}
-                    href={href}
-                    target={label === 'Email' ? '_self' : '_blank'}
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    whileHover={{ scale: 1.1, y: -3 }}
-                    className="w-12 h-12 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:text-violet-500 hover:border-violet-500/30 transition-all duration-300 flex items-center justify-center"
-                  >
-                    <Icon size={18} />
-                  </motion.a>
-                ))}
-              </div>
-            </div>
+
           </motion.div>
 
           {/* ── RIGHT — Form ── */}
