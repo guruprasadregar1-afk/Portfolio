@@ -368,25 +368,6 @@ export const aiTools = [
   { name: 'Claude', icon: 'claude' },
 ];
 
-// ─── Science & Curiosity ─────────────────────────────────────────────
-// [DRAFT, review wording]
-export const scienceIntroCopy = "Alongside software engineering, I'm drawn to physics and the geometry of higher dimensions, and I like turning abstract ideas into something you can see and interact with—for example, a dot trapped in a 2D square, or a ball escaping a sealed 3D box by stepping along a fourth direction.";
-
-export const scienceTopics = [
-  {
-    id: '4th-dimension',
-    title: '4th Dimension',
-    researchId: '4th-dimension',
-    description: 'Spatio-temporal 4D rendering, hyperplane slicing of tesseracts, and SO(4) rotor rotation mechanics.',
-  },
-  {
-    id: 'black-hole',
-    title: 'Black Hole Physics',
-    researchId: 'black-hole',
-    description: 'Real-time Schwarzschild geodesics and binary black-hole gravitational lensing shaders.',
-  },
-];
-
 // ─── Nav Links ────────────────────────────────────────────────────────
 export const navLinks = [
   { name: 'Home',     href: 'hero'     },
@@ -394,7 +375,6 @@ export const navLinks = [
   { name: 'Skills',   href: 'skills'   },
   { name: 'Projects', href: 'projects' },
   { name: 'AI',       href: 'ai'       },
-  { name: 'Science',  href: 'science'  },
   { name: 'Research', href: 'research' },
   { name: 'Services', href: 'services' },
   { name: 'Journey',  href: 'journey'  },
