@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Beaker, CheckCircle2, Clock, ExternalLink, Github, FileText, Cpu, Target, Award, Camera, Video, ShieldCheck, AlertTriangle, Sparkles, BookOpen } from 'lucide-react';
@@ -8,6 +8,7 @@ import NotFound from './NotFound';
 const ResearchDetail = () => {
   const { id } = useParams();
   const project = researchProjects.find((p) => p.id === id);
+  const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -25,6 +26,57 @@ const ResearchDetail = () => {
     }
   }, [project]);
 
+  const activeSections = useMemo(() => {
+    if (!project) return [];
+    return [
+      project.researchQuestion && { id: 'question', label: 'Research Question' },
+      project.methodology && { id: 'methodology', label: 'Methodology' },
+      project.implementation && { id: 'implementation', label: 'Architecture' },
+      project.video && { id: 'video', label: 'Video Demo' },
+      (project.images && project.images.length > 0) && { id: 'gallery', label: 'Visual Proofs' },
+      project.results && { id: 'results', label: 'Findings & Results' },
+      project.validation && { id: 'validation', label: 'Validation' },
+      project.limitations && { id: 'limitations', label: 'Limitations' },
+      project.futureWork && { id: 'futureWork', label: 'Future Work' },
+      (project.references && project.references.length > 0) && { id: 'references', label: 'References' },
+    ].filter(Boolean);
+  }, [project]);
+
+  useEffect(() => {
+    if (!project || activeSections.length === 0) return;
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveId(entry.target.id);
+        }
+      });
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    activeSections.forEach((sec) => {
+      const el = document.getElementById(sec.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [project, activeSections]);
+
+  const handleScrollTo = (sectionId) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      el.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    }
+  };
+
   if (!project) {
     return <NotFound />;
   }
@@ -35,7 +87,7 @@ const ResearchDetail = () => {
     project.researchQuestion === '[PLACEHOLDER — awaiting content]';
 
   return (
-    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-gray-200">
+    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-gray-200">
       {/* Back Link */}
       <motion.div
         initial={{ opacity: 0, x: -10 }}
@@ -125,264 +177,306 @@ const ResearchDetail = () => {
           </Link>
         </motion.div>
       ) : (
-        <motion.main
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="space-y-10"
-        >
-          {/* Research Question */}
-          <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-            <div className="flex items-center gap-3 mb-4 text-violet-400">
-              <Target size={22} />
-              <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                1. Research Question & Objective
-              </h2>
-            </div>
-            <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-              {project.researchQuestion}
-            </p>
-          </section>
-
-          {/* Methodology */}
-          <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-            <div className="flex items-center gap-3 mb-4 text-violet-400">
-              <FileText size={22} />
-              <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                2. Methodology & Approach
-              </h2>
-            </div>
-            <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-              {project.methodology}
-            </p>
-          </section>
-
-          {/* Implementation */}
-          <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-            <div className="flex items-center gap-3 mb-4 text-violet-400">
-              <Cpu size={22} />
-              <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                3. Technical Architecture & Implementation
-              </h2>
-            </div>
-            <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-              {project.implementation}
-            </p>
-          </section>
-
-          {/* Video Demonstration */}
-          {project.video && (
-            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-6 text-violet-400">
-                <Video size={22} />
+        <div className="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12 items-start">
+          <motion.main
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-10"
+          >
+            {/* Research Question */}
+            <section id="question" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-4 text-violet-400">
+                <Target size={22} />
                 <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  Video Demonstration & Gameplay Proof
+                  1. Research Question & Objective
                 </h2>
               </div>
-              <div className="overflow-hidden rounded-2xl border border-white/10 bg-gray-950">
-                <video
-                  controls
-                  preload="metadata"
-                  className="w-full max-h-[480px] object-contain rounded-2xl"
-                  src={project.video}
-                >
-                  Your browser does not support HTML5 video playback.
-                </video>
-              </div>
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                {project.researchQuestion}
+              </p>
             </section>
-          )}
 
-          {/* Visual Demonstrations / Gallery */}
-          {project.images && project.images.length > 0 && (
-            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-6 text-violet-400">
-                <Camera size={22} />
+            {/* Methodology */}
+            <section id="methodology" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-4 text-violet-400">
+                <FileText size={22} />
                 <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  Visual Proofs & Interactive Demonstrations
+                  2. Methodology & Approach
                 </h2>
               </div>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {project.images.map((img, index) => {
-                  const src = typeof img === 'string' ? img : img.url;
-                  const caption = typeof img === 'string' ? `Demonstration ${index + 1}` : img.caption;
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                {project.methodology}
+              </p>
+            </section>
 
-                  return (
-                    <div
-                      key={index}
-                      className="group overflow-hidden rounded-2xl border border-white/10 bg-gray-900/60 transition-all duration-300 hover:border-violet-500/30"
-                    >
-                      <div className="relative h-48 overflow-hidden bg-gray-950 flex items-center justify-center">
-                        <img
-                          src={src}
-                          alt={caption}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.nextSibling.style.display = 'flex';
-                          }}
-                        />
-                        <div
-                          style={{ display: 'none' }}
-                          className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-violet-950/80 to-indigo-950/80 p-4 text-center"
-                        >
-                          <span className="text-violet-300 text-xs font-medium">
-                            {caption}
-                          </span>
+            {/* Implementation */}
+            <section id="implementation" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-4 text-violet-400">
+                <Cpu size={22} />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                  3. Technical Architecture & Implementation
+                </h2>
+              </div>
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                {project.implementation}
+              </p>
+            </section>
+
+            {/* Video Demonstration */}
+            {project.video && (
+              <section id="video" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-6 text-violet-400">
+                  <Video size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    Video Demonstration & Gameplay Proof
+                  </h2>
+                </div>
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-gray-950">
+                  <video
+                    controls
+                    preload="metadata"
+                    className="w-full max-h-[480px] object-contain rounded-2xl"
+                    src={project.video}
+                  >
+                    Your browser does not support HTML5 video playback.
+                  </video>
+                </div>
+              </section>
+            )}
+
+            {/* Visual Demonstrations / Gallery */}
+            {project.images && project.images.length > 0 && (
+              <section id="gallery" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-6 text-violet-400">
+                  <Camera size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    Visual Proofs & Interactive Demonstrations
+                  </h2>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {project.images.map((img, index) => {
+                    const src = typeof img === 'string' ? img : img.url;
+                    const caption = typeof img === 'string' ? `Demonstration ${index + 1}` : img.caption;
+
+                    return (
+                      <div
+                        key={index}
+                        className="group overflow-hidden rounded-2xl border border-white/10 bg-gray-900/60 transition-all duration-300 hover:border-violet-500/30"
+                      >
+                        <div className="relative h-48 overflow-hidden bg-gray-950 flex items-center justify-center">
+                          <img
+                            src={src}
+                            alt={caption}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                          <div
+                            style={{ display: 'none' }}
+                            className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-violet-950/80 to-indigo-950/80 p-4 text-center"
+                          >
+                            <span className="text-violet-300 text-xs font-medium">
+                              {caption}
+                            </span>
+                          </div>
                         </div>
+                        {caption && (
+                          <div className="p-4 border-t border-white/5 bg-white/[0.02]">
+                            <p className="text-xs text-gray-300 font-medium leading-relaxed">
+                              {caption}
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      {caption && (
-                        <div className="p-4 border-t border-white/5 bg-white/[0.02]">
-                          <p className="text-xs text-gray-300 font-medium leading-relaxed">
-                            {caption}
-                          </p>
-                        </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
+            {/* Results */}
+            <section id="results" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-4 text-violet-400">
+                <Award size={22} />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                  4. Findings & Experimental Results
+                </h2>
+              </div>
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                {project.results}
+              </p>
+            </section>
+
+            {/* Validation */}
+            {project.validation && (
+              <section id="validation" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-4 text-violet-400">
+                  <ShieldCheck size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    Test Coverage & Experimental Validation
+                  </h2>
+                </div>
+                <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                  {project.validation}
+                </p>
+              </section>
+            )}
+
+            {/* Limitations */}
+            {project.limitations && (
+              <section id="limitations" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-4 text-violet-400">
+                  <AlertTriangle size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    Technical Limitations & Edge Cases
+                  </h2>
+                </div>
+                <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                  {project.limitations}
+                </p>
+              </section>
+            )}
+
+            {/* Future Work */}
+            {project.futureWork && (
+              <section id="futureWork" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-4 text-violet-400">
+                  <Sparkles size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    Planned Extensions & Future Work
+                  </h2>
+                </div>
+                <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                  {project.futureWork}
+                </p>
+              </section>
+            )}
+
+            {/* References */}
+            {project.references && project.references.length > 0 && (
+              <section id="references" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-4 text-violet-400">
+                  <BookOpen size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    Academic & Literature References
+                  </h2>
+                </div>
+                <ul className="space-y-3">
+                  {project.references.map((ref, idx) => (
+                    <li key={idx} className="text-gray-300 text-sm leading-relaxed">
+                      {ref.url ? (
+                        <a
+                          href={ref.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-violet-400 hover:underline flex items-start gap-1.5"
+                        >
+                          <span>• {ref.label}</span>
+                          <ExternalLink size={13} className="shrink-0 mt-0.5" />
+                        </a>
+                      ) : (
+                        <span>• {ref.label}</span>
                       )}
-                    </div>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Links / Actions */}
+            {(project.github || project.githubBackend || project.githubFrontend || project.live) && (
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-4">
+                {project.githubBackend && (
+                  <a
+                    href={project.githubBackend}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
+                  >
+                    <Github size={20} />
+                    Backend Repository
+                  </a>
+                )}
+                {project.githubFrontend && (
+                  <a
+                    href={project.githubFrontend}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
+                  >
+                    <Github size={20} />
+                    Frontend Repository
+                  </a>
+                )}
+                {project.github && !project.githubBackend && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
+                  >
+                    <Github size={20} />
+                    View Source Repository
+                  </a>
+                )}
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition-all duration-300 shadow-lg shadow-violet-500/20"
+                  >
+                    <ExternalLink size={20} />
+                    Launch Interactive Demo
+                  </a>
+                )}
+              </div>
+            )}
+          </motion.main>
+
+          {/* Sticky Stepper Sidebar (Desktop) */}
+          <aside className="hidden lg:block sticky top-28 p-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-6">
+              Report Contents
+            </p>
+            <div className="relative pl-2">
+              <div className="absolute left-[19px] top-3 bottom-3 w-0.5 bg-white/10" />
+
+              <div className="space-y-6 relative">
+                {activeSections.map((sec, idx) => {
+                  const isActive = activeId === sec.id;
+                  return (
+                    <button
+                      key={sec.id}
+                      onClick={() => handleScrollTo(sec.id)}
+                      className="group flex items-center gap-3 w-full text-left transition-colors"
+                    >
+                      <div
+                        className={`relative z-10 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 motion-reduce:transition-none ${
+                          isActive
+                            ? 'bg-violet-600 text-white ring-4 ring-violet-500/20 scale-110'
+                            : 'bg-gray-900 border border-white/20 text-gray-400 group-hover:border-violet-500/50 group-hover:text-gray-200'
+                        }`}
+                      >
+                        {idx + 1}
+                      </div>
+                      <span
+                        className={`text-xs font-medium transition-colors ${
+                          isActive ? 'text-violet-300 font-semibold' : 'text-gray-400 group-hover:text-gray-200'
+                        }`}
+                      >
+                        {sec.label}
+                      </span>
+                    </button>
                   );
                 })}
               </div>
-            </section>
-          )}
-
-          {/* Results */}
-          <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-            <div className="flex items-center gap-3 mb-4 text-violet-400">
-              <Award size={22} />
-              <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                4. Findings & Experimental Results
-              </h2>
             </div>
-            <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-              {project.results}
-            </p>
-          </section>
-
-          {/* Validation */}
-          {project.validation && (
-            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-4 text-violet-400">
-                <ShieldCheck size={22} />
-                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  Test Coverage & Experimental Validation
-                </h2>
-              </div>
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-                {project.validation}
-              </p>
-            </section>
-          )}
-
-          {/* Limitations */}
-          {project.limitations && (
-            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-4 text-violet-400">
-                <AlertTriangle size={22} />
-                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  Technical Limitations & Edge Cases
-                </h2>
-              </div>
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-                {project.limitations}
-              </p>
-            </section>
-          )}
-
-          {/* Future Work */}
-          {project.futureWork && (
-            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-4 text-violet-400">
-                <Sparkles size={22} />
-                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  Planned Extensions & Future Work
-                </h2>
-              </div>
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-                {project.futureWork}
-              </p>
-            </section>
-          )}
-
-          {/* References */}
-          {project.references && project.references.length > 0 && (
-            <section className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-4 text-violet-400">
-                <BookOpen size={22} />
-                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  Academic & Literature References
-                </h2>
-              </div>
-              <ul className="space-y-3">
-                {project.references.map((ref, idx) => (
-                  <li key={idx} className="text-gray-300 text-sm leading-relaxed">
-                    {ref.url ? (
-                      <a
-                        href={ref.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-violet-400 hover:underline flex items-start gap-1.5"
-                      >
-                        <span>• {ref.label}</span>
-                        <ExternalLink size={13} className="shrink-0 mt-0.5" />
-                      </a>
-                    ) : (
-                      <span>• {ref.label}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {/* Links / Actions */}
-          {(project.github || project.githubBackend || project.githubFrontend || project.live) && (
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-4">
-              {project.githubBackend && (
-                <a
-                  href={project.githubBackend}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
-                >
-                  <Github size={20} />
-                  Backend Repository
-                </a>
-              )}
-              {project.githubFrontend && (
-                <a
-                  href={project.githubFrontend}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
-                >
-                  <Github size={20} />
-                  Frontend Repository
-                </a>
-              )}
-              {project.github && !project.githubBackend && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
-                >
-                  <Github size={20} />
-                  View Source Repository
-                </a>
-              )}
-              {project.live && (
-                <a
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition-all duration-300 shadow-lg shadow-violet-500/20"
-                >
-                  <ExternalLink size={20} />
-                  Launch Interactive Demo
-                </a>
-              )}
-            </div>
-          )}
-        </motion.main>
+          </aside>
+        </div>
       )}
     </div>
   );
