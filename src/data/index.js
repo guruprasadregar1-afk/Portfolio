@@ -189,23 +189,6 @@ export const researchProjects = [
     githubMain: 'https://github.com/guruprasadregar1-afk/4th-dimension',
     githubEngine: 'https://github.com/guruprasadregar1-afk/4th-dimension-engine',
     researchWriteup: '[link to /research folder or arXiv once submitted]',
-    mediaPlaceholders: [
-      {
-        id: 'concept-mode',
-        title: 'Concept Mode Side-by-Side View',
-        description: 'Screenshot showing Concept Mode side-by-side view with live falsifiable numeric metric',
-      },
-      {
-        id: 'impossible-escape',
-        title: 'The Impossible Escape Puzzle',
-        description: 'Screenshot of the Impossible Escape public interactive puzzle',
-      },
-      {
-        id: 'splat-view',
-        title: 'Splat View Scene',
-        description: 'Screenshot showing real-time Gaussian splat rendering scene',
-      },
-    ],
     featured: true,
   },
 ];
