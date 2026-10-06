@@ -14,6 +14,30 @@ export const engineeringProjects = [
     live: 'https://ai-storyteller-frontend.vercel.app',
     featured: true,
   },
+  {
+    id: 2,
+    title: 'Versal — Modular Web Platform',
+    description:
+      'Scalable micro-frontend web application architecture built with React, Next.js, and TypeScript, featuring dynamic layout composition and modular component design.',
+    image: '/placeholder-research.png',
+    tech: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Redux'],
+    category: 'Frontend Architecture',
+    github: 'https://github.com/guruprasadregar1-afk',
+    live: null,
+    featured: false,
+  },
+  {
+    id: 3,
+    title: 'BoatWizard-to-NautiX Migration Engine',
+    description:
+      'Data transformation and backend migration system handling high-volume inventory sync, schema mapping, and API integration for maritime logistics software.',
+    image: '/placeholder-research.png',
+    tech: ['Node.js', 'Express', 'PostgreSQL', 'REST APIs', 'AWS'],
+    category: 'Backend Engine',
+    github: 'https://github.com/guruprasadregar1-afk',
+    live: null,
+    featured: false,
+  },
 ];
 
 export const projects = engineeringProjects;
@@ -125,43 +149,61 @@ export const researchProjects = [
   },
   {
     id: '4th-dimension',
-    title: '4th Dimension Representation Platform',
-    tagline: 'Spatio-temporal 4D rendering platform featuring time-sliced Gaussian splatting, hyperplane slicing, and soft-body XPBD physics.',
-    status: 'In development — interactive demo live',
-    researchQuestion:
-      'How can 4D spatio-temporal datasets and 4D polytope geometries be sliced by 3D hyperplanes, dynamically rendered as alpha splats, and physically simulated in real-time web viewports?',
-    methodology:
-      'Developed mathematical primitives for 4D rotation matrices (SO(4) rotor algebra), 3D hyperplane slicing of 4D tesseracts and polytopes, and extended position-based dynamics (XPBD) soft-body constraints applied to 4D Gaussian spatial means. Built a series of 6 computational validation experiments.',
-    implementation:
-      'Engine (@4th-dimension/engine): Zero-dependency TypeScript engine providing 4D math, polytope geometry, hyperplane slicing algorithms, XPBD physics solvers, and time-slicing renderers. Platform (4th-dimension): Next.js App Router frontend with Three.js viewer embeds, time scrubber UI, Zustand state management, and a NestJS + MongoDB backend supporting 4D Gaussian primitive streaming (embedded & GridFS) and multi-format asset import (.json, .ply, .splat).',
-    results:
-      'In active development as a demonstrable proof-of-concept. Features a functional 4-level onboarding puzzle progression (Level 1: 2D Flatland trap -> Level 2: Sealed 3D chamber -> Level 3: Stepping into the 4th dimension via W-position translation -> Level 4: Escaping via the 4th-dimension shortcut). Proves the practical mechanics of SO(4) rotor rotations and 4D hyperplane slicing for spatial interaction, while full 4D scene splat rendering is actively being scaled.',
-    limitations:
-      'Full 4D spatio-temporal Gaussian splat rendering is in prototype stage. Real-time XPBD soft-body collision response for complex 4D polytopes is computationally intensive in browser main thread.',
-    futureWork:
-      'WebGPU compute pipeline for 4D splat sorting, expanding the 4-level puzzle progression, and export utilities for 4D animated mesh formats.',
-    techStack: ['TypeScript', 'Next.js', 'Three.js', 'NestJS', 'MongoDB', 'GridFS', 'XPBD Physics', 'Vite', 'Vitest', 'Tailwind CSS'],
-    github: null,
-    githubBackend: 'https://github.com/guruprasadregar1-afk/4th-dimension-engine',
-    githubFrontend: 'https://github.com/guruprasadregar1-afk/4th-dimension',
-    live: null,
-    video: '/research/4th-dimension/demo-video.mp4',
-    images: [
+    title: '4D Representation Platform',
+    tagline:
+      'A full-stack platform for exploring the 4th dimension — combining a rigorously validated computational geometry engine, real-time Gaussian splat rendering, and interactive tools that teach the concept through direct experience rather than passive observation.',
+    status: 'Validated platform & live demo',
+    problem:
+      'Most "4th dimension" demos show a rotating shape and ask you to take it on faith. I wanted to build something that proves its own correctness — every geometric claim checked against independently hand-derived mathematics, not just "it looks right" — while also being genuinely understandable to someone with no math background.',
+    whatIBuilt: [
+      'A full-stack platform (Next.js, NestJS, MongoDB) with real-time multi-user collaboration, JWT auth with rotating refresh tokens, and a custom WebGL2 rendering engine (no third-party splat library).',
+      'A validated computational geometry engine performing exact hyperplane-to-polytope slicing — computing the true cross-section of a 4-dimensional shape through any chosen plane, verified against hand-derived analytical ground truth (not approximated).',
+      '"Concept Mode" — an interactive tool that proves 4D rotation causes real geometric distortion using a live, falsifiable numeric metric, with an honest control mode proving static 3D data has no such distortion.',
+      '"The Impossible Escape" — a public, no-login interactive puzzle teaching the core 4D concept by letting the user fail at an impossible task before discovering the solution, rather than narrating it.',
+      'A public REST API exposing the validated slicing engine, built after identifying a real, documented gap in ML interpretability research (exact high-dimensional slicing vs. the field\'s standard lossy PCA projection method) — currently in outreach to the authors of a relevant published visual-analytics framework.',
+      'The engine published as its own standalone, CI-verified npm-installable package, independent of the main platform.',
+    ],
+    technicalChallenges: [
+      'A coordinate-space unit mismatch causing incorrect Gaussian splat rendering, traced to a pixel-space vs. NDC-space conflict between shader variables.',
+      'A near-zero-variance division bug causing degenerate geometry on certain inputs, fixed with a principled numerical floor and confirmed via adversarial tests specifically designed to break the fix.',
+      'A silent projection-validity bug: naively dropping a coordinate to reduce dimensionality is only valid for axis-aligned cases — fixed by deriving a genuine, stable orthonormal basis for arbitrary oblique cases.',
+      'A monorepo git-subdirectory packaging failure preventing reliable installation in external projects — resolved by restructuring into a standalone, independently-versioned, CI-tested package.',
+    ],
+    techStack: [
+      'Next.js 14',
+      'NestJS',
+      'MongoDB/Mongoose',
+      'TypeScript',
+      'WebGL2',
+      'WebSockets',
+      'JWT auth',
+      'Docker',
+      'GitHub Actions CI',
+      'Vitest/Jest',
+    ],
+    scopeNote:
+      'This project validates computational geometry — it does not and cannot prove that a physical fourth spatial dimension exists; no software can establish that, only physical experiments can. Where the project touches real physics (a separate module modeling compact extra-dimension gravity theories), it explicitly compares model predictions against real published experimental limits and is clearly labeled as a model, never as evidence.',
+    live: 'https://4th-dimension-ivory.vercel.app/escape',
+    liveApi: 'https://fourth-dimension-re4c.onrender.com/api/public/slice',
+    apiDocs: 'https://fourth-dimension-re4c.onrender.com/api/docs',
+    githubMain: 'https://github.com/guruprasadregar1-afk/4th-dimension',
+    githubEngine: 'https://github.com/guruprasadregar1-afk/4th-dimension-engine',
+    researchWriteup: '[link to /research folder or arXiv once submitted]',
+    mediaPlaceholders: [
       {
-        url: '/research/4th-dimension/level1-2d-trap.png',
-        caption: 'Level 1: The 2D Flatland trap — constrained to planar movement.',
+        id: 'concept-mode',
+        title: 'Concept Mode Side-by-Side View',
+        description: 'Screenshot showing Concept Mode side-by-side view with live falsifiable numeric metric',
       },
       {
-        url: '/research/4th-dimension/level2-3d-chamber.png',
-        caption: 'Level 2: Sealed in the 3D chamber — enclosed spatial boundaries.',
+        id: 'impossible-escape',
+        title: 'The Impossible Escape Puzzle',
+        description: 'Screenshot of the Impossible Escape public interactive puzzle',
       },
       {
-        url: '/research/4th-dimension/stepping-4d-w-shift.png',
-        caption: 'Stepping into the 4th dimension — W-position shifts reveal new hyper-slices.',
-      },
-      {
-        url: '/research/4th-dimension/escaped-4d-shortcut.png',
-        caption: 'Escaped: The 4th-dimension shortcut proven via SO(4) rotor rotation.',
+        id: 'splat-view',
+        title: 'Splat View Scene',
+        description: 'Screenshot showing real-time Gaussian splat rendering scene',
       },
     ],
     featured: true,
@@ -374,7 +416,6 @@ export const navLinks = [
   { name: 'About',    href: 'about'    },
   { name: 'Skills',   href: 'skills'   },
   { name: 'Projects', href: 'projects' },
-  { name: 'AI',       href: 'ai'       },
   { name: 'Research', href: 'research' },
   { name: 'Services', href: 'services' },
   { name: 'Journey',  href: 'journey'  },

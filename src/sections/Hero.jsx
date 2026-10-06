@@ -67,7 +67,7 @@ const Hero = () => {
 
             {/* // [DRAFT, review wording] */}
             <motion.p variants={fadeInUp} className="text-gray-400 text-lg leading-relaxed mb-4 max-w-lg mx-auto lg:mx-0">
-              Senior Full Stack Developer with <strong className="text-white">5+ years</strong> of experience building production web applications for international clients across the UK, EU, and US, with a growing focus on AI-powered systems and interactive physics visualizations. Deep expertise in MERN, Next.js, NestJS, micro-frontends, and Web3.
+              Senior Full Stack Developer specializing in AI-powered systems and micro-frontend architecture, with a growing focus on interactive physics visualizations. <strong className="font-semibold text-black dark:text-white">5+ years</strong> shipping production applications for international clients.
             </motion.p>
 
             {/* // [DRAFT, review wording] AI Proficiency */}
@@ -118,7 +118,7 @@ const Hero = () => {
                 black-hole engine <ExternalLink size={11} />
               </a>
               <span className="text-gray-600">•</span>
-              <button onClick={() => document.getElementById('ai')?.scrollIntoView({ behavior: 'smooth' })} className="text-violet-400 hover:underline font-medium flex items-center gap-0.5">
+              <button onClick={() => document.getElementById('ai-systems')?.scrollIntoView({ behavior: 'smooth' })} className="text-violet-400 hover:underline font-medium flex items-center gap-0.5">
                 AI systems <ArrowDown size={11} />
               </button>
             </motion.div>

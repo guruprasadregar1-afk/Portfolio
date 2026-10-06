@@ -29,16 +29,18 @@ const ResearchDetail = () => {
   const activeSections = useMemo(() => {
     if (!project) return [];
     return [
-      project.researchQuestion && { id: 'question', label: 'Research Question' },
-      project.methodology && { id: 'methodology', label: 'Methodology' },
-      project.implementation && { id: 'implementation', label: 'Architecture' },
+      (project.problem || project.researchQuestion) && { id: 'problem', label: 'Problem & Objective' },
+      (project.whatIBuilt || project.methodology) && { id: 'built', label: 'What I Built' },
+      (project.technicalChallenges || project.implementation) && { id: 'challenges', label: 'Key Technical Challenges' },
+      project.scopeNote && { id: 'scopenote', label: 'Scope & Honesty Note' },
+      (project.mediaPlaceholders || (project.images && project.images.length > 0)) && { id: 'media', label: 'Screenshots & Media' },
       project.video && { id: 'video', label: 'Video Demo' },
-      (project.images && project.images.length > 0) && { id: 'gallery', label: 'Visual Proofs' },
       project.results && { id: 'results', label: 'Findings & Results' },
       project.validation && { id: 'validation', label: 'Validation' },
       project.limitations && { id: 'limitations', label: 'Limitations' },
       project.futureWork && { id: 'futureWork', label: 'Future Work' },
       (project.references && project.references.length > 0) && { id: 'references', label: 'References' },
+      (project.live || project.liveApi || project.apiDocs || project.githubMain || project.githubEngine || project.github) && { id: 'links', label: 'Links & Repositories' },
     ].filter(Boolean);
   }, [project]);
 
@@ -84,7 +86,7 @@ const ResearchDetail = () => {
   const isPlaceholder =
     project.status === 'Coming soon' ||
     project.tagline === '[PLACEHOLDER — awaiting content]' ||
-    project.researchQuestion === '[PLACEHOLDER — awaiting content]';
+    (project.researchQuestion === '[PLACEHOLDER — awaiting content]' && !project.problem);
 
   return (
     <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-gray-200">
@@ -113,21 +115,35 @@ const ResearchDetail = () => {
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl -z-10" />
 
-        <div className="flex flex-wrap items-center gap-3 mb-4">
-          <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-violet-500/10 text-violet-300 border border-violet-500/20">
-            <Beaker size={13} />
-            Research Technical Report
-          </span>
-          <span
-            className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${
-              isPlaceholder
-                ? 'bg-amber-500/10 text-amber-300 border-amber-500/20'
-                : 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
-            }`}
-          >
-            {isPlaceholder ? <Clock size={12} /> : <CheckCircle2 size={12} />}
-            {isPlaceholder ? 'Coming Soon' : project.status}
-          </span>
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-violet-500/10 text-violet-300 border border-violet-500/20">
+              <Beaker size={13} />
+              Case Study
+            </span>
+            <span
+              className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${
+                isPlaceholder
+                  ? 'bg-amber-500/10 text-amber-300 border-amber-500/20'
+                  : 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
+              }`}
+            >
+              {isPlaceholder ? <Clock size={12} /> : <CheckCircle2 size={12} />}
+              {isPlaceholder ? 'Coming Soon' : project.status}
+            </span>
+          </div>
+
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold shadow-lg shadow-violet-500/20 transition-all"
+            >
+              <ExternalLink size={14} />
+              Launch Live Site
+            </a>
+          )}
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">
@@ -184,44 +200,162 @@ const ResearchDetail = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-10"
           >
-            {/* Research Question */}
-            <section id="question" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-4 text-violet-400">
-                <Target size={22} />
-                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  1. Research Question & Objective
-                </h2>
-              </div>
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-                {project.researchQuestion}
-              </p>
-            </section>
+            {/* Problem & Objective */}
+            {(project.problem || project.researchQuestion) && (
+              <section id="problem" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-4 text-violet-400">
+                  <Target size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    The Problem
+                  </h2>
+                </div>
+                <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                  {project.problem || project.researchQuestion}
+                </p>
+              </section>
+            )}
 
-            {/* Methodology */}
-            <section id="methodology" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-4 text-violet-400">
-                <FileText size={22} />
-                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  2. Methodology & Approach
-                </h2>
-              </div>
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-                {project.methodology}
-              </p>
-            </section>
+            {/* What I Built / Methodology */}
+            {(project.whatIBuilt || project.methodology) && (
+              <section id="built" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-6 text-violet-400">
+                  <FileText size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    What I Built
+                  </h2>
+                </div>
+                {Array.isArray(project.whatIBuilt) ? (
+                  <ul className="space-y-4">
+                    {project.whatIBuilt.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-gray-300 leading-relaxed text-base">
+                        <span className="w-2 h-2 rounded-full bg-violet-400 mt-2.5 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                    {project.whatIBuilt || project.methodology}
+                  </p>
+                )}
+              </section>
+            )}
 
-            {/* Implementation */}
-            <section id="implementation" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-4 text-violet-400">
-                <Cpu size={22} />
-                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  3. Technical Architecture & Implementation
-                </h2>
-              </div>
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-                {project.implementation}
-              </p>
-            </section>
+            {/* Key Technical Challenges Solved / Architecture */}
+            {(project.technicalChallenges || project.implementation) && (
+              <section id="challenges" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-6 text-violet-400">
+                  <Cpu size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    Key Technical Challenges Solved
+                  </h2>
+                </div>
+                {Array.isArray(project.technicalChallenges) ? (
+                  <ul className="space-y-4">
+                    {project.technicalChallenges.map((challenge, idx) => (
+                      <li key={idx} className="p-4 rounded-2xl border border-white/5 bg-white/[0.02] flex items-start gap-3.5 text-gray-300 leading-relaxed text-base">
+                        <span className="p-1 rounded-lg bg-violet-500/10 text-violet-300 border border-violet-500/20 mt-0.5 shrink-0 font-mono text-xs font-bold">
+                          #{idx + 1}
+                        </span>
+                        <span>{challenge}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                    {project.technicalChallenges || project.implementation}
+                  </p>
+                )}
+              </section>
+            )}
+
+            {/* Scope and Honesty Note */}
+            {project.scopeNote && (
+              <section id="scopenote" className="p-8 rounded-3xl border border-amber-500/30 bg-amber-500/10 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-3 text-amber-400">
+                  <AlertTriangle size={22} />
+                  <h2 className="text-xl font-bold text-amber-300 uppercase tracking-wider text-sm">
+                    Scope and Honesty Note
+                  </h2>
+                </div>
+                <p className="text-amber-100/90 leading-relaxed text-base font-medium">
+                  {project.scopeNote}
+                </p>
+              </section>
+            )}
+
+            {/* Media / Screenshots / Placeholders */}
+            {(project.mediaPlaceholders || (project.images && project.images.length > 0)) && (
+              <section id="media" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-6 text-violet-400">
+                  <Camera size={22} />
+                  <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                    Screenshots & Visual Proofs
+                  </h2>
+                </div>
+
+                {project.mediaPlaceholders ? (
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    {project.mediaPlaceholders.map((ph, idx) => (
+                      <div
+                        key={idx}
+                        className="rounded-2xl border-2 border-dashed border-white/20 bg-white/[0.02] p-6 flex flex-col items-center justify-center text-center min-h-[200px]"
+                      >
+                        <Camera size={32} className="text-violet-400 mb-3 opacity-60" />
+                        <h4 className="text-white font-semibold text-sm mb-1">{ph.title}</h4>
+                        <p className="text-gray-400 text-xs leading-relaxed max-w-xs mb-3">
+                          {ph.description}
+                        </p>
+                        <span className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-violet-500/10 text-violet-300 border border-violet-500/20">
+                          Placeholder — Upload Image Needed
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    {project.images.map((img, index) => {
+                      const src = typeof img === 'string' ? img : img.url;
+                      const caption = typeof img === 'string' ? `Demonstration ${index + 1}` : img.caption;
+
+                      return (
+                        <div
+                          key={index}
+                          className="group overflow-hidden rounded-2xl border border-white/10 bg-gray-900/60 transition-all duration-300 hover:border-violet-500/30"
+                        >
+                          <div className="relative h-48 overflow-hidden bg-gray-950 flex items-center justify-center">
+                            <img
+                              src={src}
+                              alt={caption}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'flex';
+                              }}
+                            />
+                            <div
+                              style={{ display: 'none' }}
+                              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-violet-950/80 to-indigo-950/80 p-4 text-center"
+                            >
+                              <span className="text-violet-300 text-xs font-medium">
+                                {caption}
+                              </span>
+                            </div>
+                          </div>
+                          {caption && (
+                            <div className="p-4 border-t border-white/5 bg-white/[0.02]">
+                              <p className="text-xs text-gray-300 font-medium leading-relaxed">
+                                {caption}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </section>
+            )}
 
             {/* Video Demonstration */}
             {project.video && (
@@ -229,7 +363,7 @@ const ResearchDetail = () => {
                 <div className="flex items-center gap-3 mb-6 text-violet-400">
                   <Video size={22} />
                   <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                    Video Demonstration & Gameplay Proof
+                    Video Demonstration
                   </h2>
                 </div>
                 <div className="overflow-hidden rounded-2xl border border-white/10 bg-gray-950">
@@ -245,70 +379,20 @@ const ResearchDetail = () => {
               </section>
             )}
 
-            {/* Visual Demonstrations / Gallery */}
-            {project.images && project.images.length > 0 && (
-              <section id="gallery" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-                <div className="flex items-center gap-3 mb-6 text-violet-400">
-                  <Camera size={22} />
+            {/* Results */}
+            {project.results && (
+              <section id="results" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-4 text-violet-400">
+                  <Award size={22} />
                   <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                    Visual Proofs & Interactive Demonstrations
+                    Findings & Experimental Results
                   </h2>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {project.images.map((img, index) => {
-                    const src = typeof img === 'string' ? img : img.url;
-                    const caption = typeof img === 'string' ? `Demonstration ${index + 1}` : img.caption;
-
-                    return (
-                      <div
-                        key={index}
-                        className="group overflow-hidden rounded-2xl border border-white/10 bg-gray-900/60 transition-all duration-300 hover:border-violet-500/30"
-                      >
-                        <div className="relative h-48 overflow-hidden bg-gray-950 flex items-center justify-center">
-                          <img
-                            src={src}
-                            alt={caption}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.nextSibling.style.display = 'flex';
-                            }}
-                          />
-                          <div
-                            style={{ display: 'none' }}
-                            className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-violet-950/80 to-indigo-950/80 p-4 text-center"
-                          >
-                            <span className="text-violet-300 text-xs font-medium">
-                              {caption}
-                            </span>
-                          </div>
-                        </div>
-                        {caption && (
-                          <div className="p-4 border-t border-white/5 bg-white/[0.02]">
-                            <p className="text-xs text-gray-300 font-medium leading-relaxed">
-                              {caption}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
+                  {project.results}
+                </p>
               </section>
             )}
-
-            {/* Results */}
-            <section id="results" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-4 text-violet-400">
-                <Award size={22} />
-                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
-                  4. Findings & Experimental Results
-                </h2>
-              </div>
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line text-base font-normal">
-                {project.results}
-              </p>
-            </section>
 
             {/* Validation */}
             {project.validation && (
@@ -387,54 +471,94 @@ const ResearchDetail = () => {
             )}
 
             {/* Links / Actions */}
-            {(project.github || project.githubBackend || project.githubFrontend || project.live) && (
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-4">
-                {project.githubBackend && (
-                  <a
-                    href={project.githubBackend}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
-                  >
-                    <Github size={20} />
-                    Backend Repository
-                  </a>
-                )}
-                {project.githubFrontend && (
-                  <a
-                    href={project.githubFrontend}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
-                  >
-                    <Github size={20} />
-                    Frontend Repository
-                  </a>
-                )}
-                {project.github && !project.githubBackend && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all duration-300 font-medium"
-                  >
-                    <Github size={20} />
-                    View Source Repository
-                  </a>
-                )}
+            <section id="links" className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+              <div className="flex items-center gap-3 mb-6 text-violet-400">
+                <ExternalLink size={22} />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider text-sm">
+                  Project Links & Resources
+                </h2>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
                 {project.live && (
                   <a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-4 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition-all duration-300 shadow-lg shadow-violet-500/20"
+                    className="flex items-center justify-between p-4 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition-all shadow-lg shadow-violet-500/20"
                   >
-                    <ExternalLink size={20} />
-                    Launch Interactive Demo
+                    <span className="flex items-center gap-2 text-sm">
+                      <ExternalLink size={18} /> Live Demo
+                    </span>
+                    <span className="text-xs opacity-80">v1.0 Live</span>
                   </a>
                 )}
+
+                {project.liveApi && (
+                  <a
+                    href={project.liveApi}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all font-medium"
+                  >
+                    <span className="flex items-center gap-2 text-sm">
+                      <ExternalLink size={18} /> Public Slicing API Endpoint
+                    </span>
+                    <span className="text-xs text-violet-400 font-mono">REST</span>
+                  </a>
+                )}
+
+                {project.apiDocs && (
+                  <a
+                    href={project.apiDocs}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all font-medium"
+                  >
+                    <span className="flex items-center gap-2 text-sm">
+                      <FileText size={18} /> API Documentation (Swagger)
+                    </span>
+                    <span className="text-xs text-violet-400 font-mono">Docs</span>
+                  </a>
+                )}
+
+                {(project.githubMain || project.githubFrontend || project.github) && (
+                  <a
+                    href={project.githubMain || project.githubFrontend || project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all font-medium"
+                  >
+                    <span className="flex items-center gap-2 text-sm">
+                      <Github size={18} /> Main Repository
+                    </span>
+                    <span className="text-xs text-gray-400 font-mono">GitHub</span>
+                  </a>
+                )}
+
+                {(project.githubEngine || project.githubBackend) && (
+                  <a
+                    href={project.githubEngine || project.githubBackend}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/5 text-gray-200 hover:border-violet-500/40 hover:text-white transition-all font-medium"
+                  >
+                    <span className="flex items-center gap-2 text-sm">
+                      <Github size={18} /> Standalone Engine Package
+                    </span>
+                    <span className="text-xs text-gray-400 font-mono">npm / GitHub</span>
+                  </a>
+                )}
+
+                {project.researchWriteup && (
+                  <div className="flex items-center justify-between p-4 rounded-2xl border border-dashed border-white/20 bg-white/[0.02] text-gray-400 text-sm">
+                    <span className="flex items-center gap-2">
+                      <BookOpen size={18} /> Research Write-up
+                    </span>
+                    <span className="text-xs text-amber-400 font-medium">arXiv / /research (Pending)</span>
+                  </div>
+                )}
               </div>
-            )}
+            </section>
           </motion.main>
 
           {/* Sticky Stepper Sidebar (Desktop) */}

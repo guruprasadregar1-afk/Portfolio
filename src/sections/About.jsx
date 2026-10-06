@@ -27,13 +27,9 @@ const About = () => (
           </h2>
 
           <div className="space-y-5 text-gray-400 text-base leading-relaxed">
+            {/* // [DRAFT, review wording] */}
             <p>
-              I'm{' '}
-              <span className="text-white font-semibold">Guru Prasad</span>
-              , a Senior Full Stack Developer with{' '}
-              <span className="text-violet-400 font-semibold">5+ years of experience</span>{' '}
-              at Dotsquares Technologies, Jaipur — delivering scalable, production-grade web applications
-              for international clients across the UK, EU, and US.
+              I'm <span className="font-semibold text-black dark:text-white">Guru Prasad</span>. At <span className="text-violet-400 font-semibold">Dotsquares Technologies</span> in Jaipur, I deliver scalable, production-grade web applications for international clients across the UK, EU, and US.
             </p>
 
             <p>
@@ -55,20 +51,6 @@ const About = () => (
               for high-performance backends, and actively seeking senior roles in{' '}
               <span className="text-violet-400 font-semibold">EU or UAE</span>.
             </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3 mt-8">
-            {[
-              'React.js', 'Next.js', 'NestJS', 'Node.js', 'Express.js',
-              'MongoDB', 'PostgreSQL', 'TypeScript', 'Redux',
-              'Micro-Frontend', 'Web3', 'NFT Dev', 'AWS', 'Stripe / PayPal',
-              'Angular', 'Go (Learning)',
-            ].map(tech => (
-              <span key={tech}
-                className="px-4 py-2 rounded-full text-xs font-medium bg-violet-500/10 text-violet-300 border border-violet-500/20 hover:bg-violet-500/20 transition-all duration-300">
-                {tech}
-              </span>
-            ))}
           </div>
         </motion.div>
 
